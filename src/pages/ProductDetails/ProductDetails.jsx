@@ -32,9 +32,8 @@ const ProductDetails = () => {
 
   const handleAddToCart = async (productId) => {
     try {
-      const token = localStorage.getItem("token");
 
-      await addToCart({ productId, quantity: 1 }, token);
+      addToCart(product);
 
       alert("Product added to cart");
 
@@ -76,7 +75,7 @@ const ProductDetails = () => {
           <div className="product-buttons">
             <button
               className="product-btn"
-              onClick={() => handleAddToCart(product._id)}
+              onClick={handleAddToCart}
             >
               Add To Cart
             </button>
