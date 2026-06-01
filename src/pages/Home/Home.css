@@ -1,0 +1,164 @@
+/* Home.css */
+
+body {
+  background: #f5f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.home-container {
+  padding: 30px;
+  min-height: 100vh;
+}
+
+.home-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.loading-text {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 16px;
+}
+
+/* Top Buttons */
+
+.top-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.top-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.top-buttons button:hover {
+  background: #2563eb;
+}
+
+/* Products Grid */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+  justify-content: center;
+  gap: 25px;
+}
+
+/* Product Card */
+
+.product-card {
+  width: 300px;
+  height: 300px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Image */
+
+.product-image-wrapper {
+  width: 100%;
+  height: 160px;
+  background: #f3f4f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* Content */
+
+.product-content {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card .product-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+}
+
+.prouct-bottom {
+  display: flex;
+  flex-direction: raw;
+  justify-content: space-between;
+}
+
+.add-to-cart-btn {
+  background: none;
+  font-size: 24px;
+}
+
+.product-card .product-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 12px;
+}
+
+/* Buttons */
+
+.buy-now-btn,
+.view-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.buy-now-btn {
+  background: #111827;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.buy-now-btn:hover {
+  background: #2563eb;
+}
+
+.view-btn {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.view-btn:hover {
+  background: #d1d5db;
+}

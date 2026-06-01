@@ -1,0 +1,93 @@
+import React from "react";
+import "./ProductDetails.css";
+import { addToCart } from "../../services/cartService";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getProductById } from "../../services/productService";
+
+const ProductDetails = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const data = await getProductById(id);
+
+        console.log(data);
+
+        setProduct(data.product);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  const handleAddToCart = async (productId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await addToCart({ productId, quantity: 1 }, token);
+
+      alert("Product added to cart");
+
+      // navigate("/cart");
+    } catch (error) {
+      console.log(error);
+      alert("Failed to add product to cart");
+    }
+  };
+
+  if (loading) {
+    return <h1 className="loading-text">Loading...</h1>;
+  }
+
+  if (!product) {
+    return <h1 className="not-found-text">Product not found</h1>;
+  }
+
+  return (
+    <div className="product-details-page">
+      <div className="product-details-container">
+        <div className="product-image-section">
+          <div className="product-image-wrapper">
+            <img
+              className="product-image"
+              src={product.image}
+              alt={product.title}
+            />
+          </div>
+        </div>
+
+        <div className="product-info-section">
+          <h1 className="product-title">{product.title}</h1>
+
+          <p className="product-description">{product.description}</p>
+
+          <h2 className="product-price">${product.price}</h2>
+
+          <div className="product-buttons">
+            <button
+              className="product-btn"
+              onClick={() => handleAddToCart(product._id)}
+            >
+              Add To Cart
+            </button>
+            <button className="view-cart-btn" onClick={() => navigate("/cart")}>
+              View Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductDetails;
