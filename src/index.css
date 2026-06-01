@@ -1,0 +1,16 @@
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #f59e0b;
+
+  --background-color: #ffffff;
+  --text-color: #111827;
+
+  --button-text-color: #ffffff;
+  --border-color: #e5e7eb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
