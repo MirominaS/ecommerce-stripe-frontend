@@ -8,7 +8,9 @@ import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import Success from "./pages/Success/Success";
 import Order from "./pages/Order/Order";
-
+import AdminRoute from "./routes/AdminRoute";
+import AdminLayout from "./layouts/AdminLayout/AdminLayout";
+import Dashboard from "./pages/Dashboard/Dashboard";
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +24,16 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/success" element={<Success />} />
         <Route path="/order" element={<Order />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
