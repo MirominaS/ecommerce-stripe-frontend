@@ -11,6 +11,11 @@ import Order from "./pages/Order/Order";
 import AdminRoute from "./routes/AdminRoute";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Analytics from "./pages/Analytics/Analytics";
+import AdminProducts from "./pages/AdminProducts/AdminProducts";
+import EditProduct from "./pages/EditProduct/EditProduct";
+import CreateProduct from "./pages/CreateProduct/CreateProduct";
+import AdminOrders from "./pages/AdminOrders/AdminOrders";
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +38,12 @@ function App() {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="analytics" element={<Analytics/>}/>
+          <Route path="products" element={<AdminProducts/>}/>
+          <Route path="products/create" element={<CreateProduct/>}/>
+          <Route path="products/edit/:id" element={<EditProduct/>}/>
+          <Route path="orders" element={<AdminOrders/>}/>
+
         </Route>
       </Routes>
     </BrowserRouter>

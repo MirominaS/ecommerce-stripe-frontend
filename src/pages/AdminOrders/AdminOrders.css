@@ -1,0 +1,269 @@
+.admin-orders {
+  width: 100%;
+}
+
+/* HEADER */
+
+.orders-header {
+  margin-bottom: 28px;
+}
+
+.orders-header h1 {
+  font-size: 34px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.orders-header p {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* FILTERS */
+
+.orders-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.orders-search,
+.orders-filter-select {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s ease;
+  background: white;
+}
+
+.orders-search {
+  flex: 1;
+  min-width: 250px;
+}
+
+.orders-filter-select {
+  min-width: 180px;
+}
+
+.orders-search:focus,
+.orders-filter-select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* TABLE */
+
+.orders-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f3f4f6;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 950px;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 18px;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orders-table thead {
+  background: #f9fafb;
+}
+
+.orders-table th {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* COLUMN WIDTHS */
+
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+  width: 180px;
+}
+
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2) {
+  width: 240px;
+}
+
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3) {
+  width: 120px;
+}
+
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+  width: 180px;
+}
+
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+  width: 140px;
+}
+
+.orders-table th:nth-child(6),
+.orders-table td:nth-child(6) {
+  width: 140px;
+}
+
+.orders-table tbody tr {
+  transition: 0.3s ease;
+}
+
+.orders-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* TEXT */
+
+.customer-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.customer-email {
+  color: #6b7280;
+}
+
+.order-total {
+  font-weight: 600;
+  font-size: 15px;
+  color: #2563eb;
+}
+
+.order-date {
+  color: #6b7280;
+}
+
+/* STATUS */
+
+.status-select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.status-select.processing {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-select.shipped {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-select.delivered {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-select.cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* DELETE BUTTON */
+
+.delete-order-btn {
+  border: none;
+  outline: none;
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.delete-order-btn:hover {
+  background: #dc2626;
+  color: white;
+}
+
+/* PAGINATION */
+
+.pagination {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.pagination-btn {
+  border: none;
+  outline: none;
+  background: #111827;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-text {
+  font-size: 15px;
+  color: #374151;
+  font-weight: 600;
+}
+
+/* LOADING */
+
+.orders-loading {
+  padding: 40px;
+  font-size: 22px;
+  color: #111827;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .orders-header h1 {
+    font-size: 28px;
+  }
+
+  .orders-filters {
+    flex-direction: column;
+  }
+
+  .orders-search,
+  .orders-filter-select {
+    width: 100%;
+  }
+}
