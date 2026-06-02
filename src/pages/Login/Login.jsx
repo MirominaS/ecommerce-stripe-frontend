@@ -31,11 +31,17 @@ const Login = () => {
     try {
       const data = await loginUser(loginData);
 
-      login(data.token);
+      login(data.token, data.user);
 
       alert("Login successful");
 
-      navigate(from === "/cart" ? "/checkout" : from);
+      if(data.user.role === "admin") {
+        navigate("/admin/dashboard")
+      } else {
+        navigate(
+          from === "/cart" ? "/checkout" : from
+        )
+      }
     } catch (error) {
       console.error(error);
 
