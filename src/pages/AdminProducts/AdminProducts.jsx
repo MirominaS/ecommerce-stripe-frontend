@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContex";
 import { deleteProduct, getAdminProducts } from "../../services/adminService";
 import "./AdminProducts.css";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { FaPlus } from "react-icons/fa6";
+
 
 const AdminProducts = () => {
   const { token } = useAuth();
@@ -51,7 +55,7 @@ const AdminProducts = () => {
         </div>
 
         <Link to="/admin/products/create" className="add-product-btn">
-          Add Product
+         <FaPlus /> Add Product
         </Link>
       </div>
 
@@ -96,16 +100,16 @@ const AdminProducts = () => {
                   <div className="action-buttons">
                     <Link
                       to={`/admin/products/edit/${product._id}`}
-                      className="edit-btn"
+                      className="edit-prdct-btn"
                     >
-                      Edit
+                      <FaEdit />
                     </Link>
 
                     <button
                       onClick={() => handleDelete(product._id)}
-                      className="delete-btn"
+                      className="delete-prdct-btn"
                     >
-                      Delete
+                      <MdDelete />
                     </button>
                   </div>
                 </td>

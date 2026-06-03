@@ -24,17 +24,27 @@
 }
 
 .add-product-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-decoration: none;
   background: #111827;
   color: white;
   padding: 14px 22px;
   border-radius: 12px;
   font-weight: 600;
+  font-size: 15px;
   transition: 0.3s ease;
 }
 
 .add-product-btn:hover {
   background: #2563eb;
+}
+
+.add-product-btn svg {
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
 /* TABLE */
@@ -153,35 +163,35 @@
   gap: 10px;
 }
 
-.edit-btn,
-.delete-btn {
+.edit-prdct-btn,
+.delete-prdct-btn {
   border: none;
   outline: none;
-  padding: 10px 16px;
+  padding: 10px 15px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s ease;
   text-decoration: none;
 }
 
-.edit-btn {
+.edit-prdct-btn {
   background: #eff6ff;
   color: #2563eb;
 }
 
-.edit-btn:hover {
+.edit-prdct-btn:hover {
   background: #2563eb;
   color: white;
 }
 
-.delete-btn {
+.delete-prdct-btn {
   background: #fee2e2;
   color: #dc2626;
 }
 
-.delete-btn:hover {
+.delete-prdct-btn:hover {
   background: #dc2626;
   color: white;
 }
