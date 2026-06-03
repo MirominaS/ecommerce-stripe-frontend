@@ -2,12 +2,15 @@ import React from "react";
 
 import { useAuth } from "../../context/AuthContex";
 import "./AdminNavbar.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminNavbar = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
+    navigate("/");
   };
 
   return (
