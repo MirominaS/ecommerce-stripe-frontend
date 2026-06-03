@@ -61,6 +61,30 @@
   margin-bottom: 18px;
 }
 
+.product-stock {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.in-stock {
+  color: #16a34a;
+}
+
+.low-stock {
+  color: #f59e0b;
+}
+
+.out-stock {
+  color: #dc2626;
+}
+
+.add-cart-btn:disabled,
+.buy-now-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .product-card-actions {
   display: flex;
   flex-direction: column;

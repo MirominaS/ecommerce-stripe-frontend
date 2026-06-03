@@ -1,8 +1,16 @@
 import "./ProductCard.css";
 
-const ProductCard = ({ product, onAddToCart, onBuyNow, onView }) => {
+const ProductCard = ({
+  product,
+  onAddToCart,
+  onBuyNow,
+  onView,
+}) => {
   return (
-    <div className="product-card" onClick={() => onView(product._id)}>
+    <div
+      className="product-card"
+      onClick={() => onView(product._id)}
+    >
       <div className="product-card-image-wrapper">
         <img
           src={product.image}
@@ -12,31 +20,60 @@ const ProductCard = ({ product, onAddToCart, onBuyNow, onView }) => {
       </div>
 
       <div className="product-card-content">
-        <p className="product-card-category">{product.category}</p>
+        <p className="product-card-category">
+          {product.category}
+        </p>
 
-        <h3 className="product-card-title">{product.title}</h3>
+        <h3 className="product-card-title">
+          {product.title}
+        </h3>
 
-        <div className="product-card-price">${product.price}</div>
+        <div className="product-card-price">
+          ${product.price}
+        </div>
+
+        {/* Stock Information */}
+        <div className="product-stock">
+          {product.stock === 0 ? (
+            <span className="out-stock">
+              Out of Stock
+            </span>
+          ) : product.stock <= 5 ? (
+            <span className="low-stock">
+              Only {product.stock} left
+            </span>
+          ) : (
+            <span className="in-stock">
+              In Stock ({product.stock})
+            </span>
+          )}
+        </div>
 
         <div className="product-card-actions">
           <button
             className="add-cart-btn"
+            disabled={product.stock === 0}
             onClick={(e) => {
               e.stopPropagation();
               onAddToCart(product);
             }}
           >
-            Add to Cart
+            {product.stock === 0
+              ? "Out of Stock"
+              : "Add to Cart"}
           </button>
 
           <button
             className="buy-now-btn"
+            disabled={product.stock === 0}
             onClick={(e) => {
               e.stopPropagation();
               onBuyNow(product._id);
             }}
           >
-            Buy Now
+            {product.stock === 0
+              ? "Out of Stock"
+              : "Buy Now"}
           </button>
         </div>
       </div>
