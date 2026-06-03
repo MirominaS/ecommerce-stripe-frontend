@@ -77,6 +77,29 @@
   margin-bottom: 30px;
 }
 
+.product-stock {
+  margin: 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.in-stock {
+  color: #16a34a;
+}
+
+.low-stock {
+  color: #f59e0b;
+}
+
+.out-stock {
+  color: #dc2626;
+}
+
+.product-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Button */
 
 .product-btn {

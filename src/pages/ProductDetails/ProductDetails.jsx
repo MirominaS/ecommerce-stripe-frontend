@@ -30,14 +30,16 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
-  const handleAddToCart = async (productId) => {
+  const handleAddToCart = async () => {
     try {
+      if (product.stock === 0) {
+        alert("Product is out of stock");
+        return;
+      }
 
       addToCart(product);
 
       alert("Product added to cart");
-
-      // navigate("/cart");
     } catch (error) {
       console.log(error);
       alert("Failed to add product to cart");
@@ -72,12 +74,22 @@ const ProductDetails = () => {
 
           <h2 className="product-price">${product.price}</h2>
 
+          <div className="product-stock">
+            {product.stock === 0 ? (
+              <span className="out-stock">Out of Stock</span>
+            ) : product.stock <= 5 ? (
+              <span className="low-stock">Only {product.stock} left</span>
+            ) : (
+              <span className="in-stock">In Stock ({product.stock})</span>
+            )}
+          </div>
           <div className="product-buttons">
             <button
               className="product-btn"
+              disabled={product.stock === 0}
               onClick={handleAddToCart}
             >
-              Add To Cart
+              {product.stock === 0 ? "Out of Stock" : "Add To Cart"}
             </button>
             <button className="view-cart-btn" onClick={() => navigate("/cart")}>
               View Cart
