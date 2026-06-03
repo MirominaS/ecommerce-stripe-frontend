@@ -116,32 +116,34 @@
 }
 
 .edit-btn,
-.delete-btn {
+.view-btn {
   border: none;
-  padding: 8px 14px;
+  padding: 10px 15px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   transition: 0.3s;
 }
 
 .edit-btn {
-  background: #2563eb;
-  color: white;
+  background: #85a9f5;
+  color: blue;
 }
 
 .edit-btn:hover {
-  background: #1d4ed8;
-}
-
-.delete-btn {
-  background: #ef4444;
+  background: blue;
   color: white;
 }
 
-.delete-btn:hover {
-  background: #dc2626;
+.view-btn {
+  background: rgb(170, 240, 170);
+  color: green;
+}
+
+.view-btn:hover {
+  background: green;
+  color: white;
 }
 
 .admin-users-pagination {

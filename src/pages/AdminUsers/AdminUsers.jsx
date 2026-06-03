@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContex";
 import {
   getAdminUsers,
-  deleteAdminUser,
   updateAdminUser,
 } from "../../services/adminService";
+import { FaEdit } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 import "./AdminUsers.css";
 
@@ -13,15 +14,10 @@ const AdminUsers = () => {
 
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const [search, setSearch] = useState("");
-
   const [page, setPage] = useState(1);
-
   const [totalPages, setTotalPages] = useState(1);
-
   const [editingUser, setEditingUser] = useState(null);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -58,20 +54,6 @@ const AdminUsers = () => {
     setPage(1);
   };
 
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Delete this user?");
-
-    if (!confirmDelete) return;
-
-    try {
-      await deleteAdminUser(token, id);
-
-      fetchUsers();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleEditClick = (user) => {
     setEditingUser(user);
 
@@ -101,6 +83,10 @@ const AdminUsers = () => {
       console.log(error);
     }
   };
+
+  const handleViewUser = () => {
+
+  }
 
   return (
     <div className="admin-users-page">
@@ -166,14 +152,14 @@ const AdminUsers = () => {
                         className="edit-btn"
                         onClick={() => handleEditClick(user)}
                       >
-                        Edit
+                       <FaEdit />
                       </button>
 
                       <button
-                        className="delete-btn"
-                        onClick={() => handleDelete(user._id)}
+                        className="view-btn"
+                        onClick={handleViewUser}
                       >
-                        Delete
+                        <FaEye />
                       </button>
                     </div>
                   </td>
