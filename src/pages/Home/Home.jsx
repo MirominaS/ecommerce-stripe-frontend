@@ -31,11 +31,16 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
+ const handleAddToCart = (product) => {
+  if (product.stock === 0) {
+    alert("Product is out of stock");
+    return;
+  }
 
-    alert("Product added to cart");
-  };
+  addToCart(product);
+
+  alert("Product added to cart");
+};
 
   const handleBuyNow = async (productId) => {
     try {
