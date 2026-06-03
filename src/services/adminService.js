@@ -136,17 +136,3 @@ export const updateAdminUser = async (token, id, data) => {
 
   return response.data;
 };
-
-// DELETE (deactivate) USER
-export const deleteAdminUser = async (token, id) => {
-  const response = await axios.delete(
-    `${API_URL}/auth/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  return response.data;
-};
