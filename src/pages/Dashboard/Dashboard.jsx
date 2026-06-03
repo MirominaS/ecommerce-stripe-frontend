@@ -35,8 +35,6 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="dashboard-header">
         <h1>Dashboard</h1>
-
-        <p>Welcome back, Admin 👋</p>
       </div>
 
       {/* summary card*/}
