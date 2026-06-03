@@ -1,0 +1,83 @@
+.navbar {
+  height: 80px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  cursor: pointer;
+}
+.custom-link {
+  text-decoration: none;
+  color: #111827;
+}
+/* ACTIONS */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-icon-btn {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #111827;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.nav-icon-btn:hover {
+  background: #f3f4f6;
+}
+
+.nav-login-btn {
+  border: none;
+  background: #111827;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-login-btn:hover {
+  background: #2563eb;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .nav-icon-btn span {
+    display: none;
+  }
+}
