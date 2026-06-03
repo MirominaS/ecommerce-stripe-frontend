@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { getMyOrders } from "../../services/orderService";
 import "./Order.css";
 import Navbar from "../../components/Navbar/Navbar";
+import { FaEye } from "react-icons/fa";
+import OrderDetailsModal from "../../components/OrderDetailsModal/OrderDetailsModal";
 
 const Order = () => {
   const navigate = useNavigate();
 
   const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -24,6 +28,16 @@ const Order = () => {
 
     fetchOrders();
   }, []);
+
+  const handleViewOrder = (order) => {
+    setSelectedOrder(order);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedOrder(null);
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -58,9 +72,12 @@ const Order = () => {
                     </p>
                   </div>
 
-                  <span className={`order-status ${order.orderStatus}`}>
-                    {order.orderStatus}
-                  </span>
+                  <button
+                    className="view-order-btn"
+                    onClick={() => handleViewOrder(order)}
+                  >
+                    <FaEye />
+                  </button>
                 </div>
 
                 {/* SUMMARY */}
@@ -70,27 +87,13 @@ const Order = () => {
 
                   <span>Total: ${order.totalPrice}</span>
                 </div>
-
-                {/* ITEMS */}
-
-                <div className="order-items">
-                  {order.orderItems.map((item, index) => (
-                    <div className="order-item" key={index}>
-                      <div className="order-item-info">
-                        <h4>{item.title}</h4>
-
-                        <p>Quantity: {item.quantity}</p>
-                      </div>
-
-                      <div className="order-item-price">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             ))}
           </div>
+        )}
+
+        {showModal && selectedOrder && (
+          <OrderDetailsModal order={selectedOrder} onClose={closeModal} />
         )}
       </div>
     </>
