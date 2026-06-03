@@ -1,0 +1,101 @@
+.order-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.order-modal {
+  width: 600px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.receipt h2 {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #222;
+}
+
+/* Customer Details */
+
+.receipt-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.receipt-info p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.receipt-info strong {
+  color: #666;
+}
+
+/* Items */
+
+.receipt h3 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.receipt-items {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.receipt-item {
+  display: grid;
+  grid-template-columns: 1fr 60px 80px;
+
+  padding: 10px 14px;
+  font-size: 0.9rem;
+}
+
+.receipt-item:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.receipt-item span:nth-child(2),
+.receipt-item span:nth-child(3) {
+  text-align: right;
+}
+
+/* Total */
+
+.receipt-total {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Button */
+
+.close-modal-btn {
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.close-modal-btn:hover {
+  background: #111;
+}
