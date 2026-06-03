@@ -16,6 +16,8 @@ import AdminProducts from "./pages/AdminProducts/AdminProducts";
 import EditProduct from "./pages/EditProduct/EditProduct";
 import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import AdminOrders from "./pages/AdminOrders/AdminOrders";
+import Payments from "./pages/Payments/Payments";
+import AdminUsers from "./pages/AdminUsers/AdminUsers";
 function App() {
   return (
     <BrowserRouter>
@@ -43,6 +45,8 @@ function App() {
           <Route path="products/create" element={<CreateProduct/>}/>
           <Route path="products/edit/:id" element={<EditProduct/>}/>
           <Route path="orders" element={<AdminOrders/>}/>
+          <Route path="payments" element={<Payments/>}/>
+          <Route path="users" element={<AdminUsers/>}/>
 
         </Route>
       </Routes>
