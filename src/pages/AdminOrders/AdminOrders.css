@@ -186,13 +186,12 @@
   color: #991b1b;
 }
 
-/* DELETE BUTTON */
 
-.delete-order-btn {
+.view-order-btn {
   border: none;
   outline: none;
-  background: #fee2e2;
-  color: #dc2626;
+  background: rgb(170, 240, 170);
+  color: green;
   padding: 10px 16px;
   border-radius: 10px;
   font-size: 14px;
@@ -201,8 +200,8 @@
   transition: 0.3s ease;
 }
 
-.delete-order-btn:hover {
-  background: #dc2626;
+.view-order-btn:hover {
+  background: green;
   color: white;
 }
 

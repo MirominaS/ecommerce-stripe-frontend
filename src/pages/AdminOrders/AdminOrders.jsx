@@ -5,6 +5,8 @@ import {
   getAllOrders,
   updateOrderStatus,
 } from "../../services/orderService";
+import { FaEye } from "react-icons/fa";
+import OrderDetailsModal from "../../components/OrderDetailsModal/OrderDetailsModal"
 
 import "./AdminOrders.css";
 
@@ -17,6 +19,8 @@ const AdminOrders = () => {
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showOrders, setShowOrders] = useState(false); 
+  const [selectedOrder, setSelectedOrder] = useState(null)
 
   const fetchOrders = async () => {
     try {
@@ -54,24 +58,16 @@ const AdminOrders = () => {
     }
   };
 
-  // DELETE
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Delete this order?");
+  const handleViewOrder = (order) => {
+    console.log(order);
+    setSelectedOrder(order)
+    setShowOrders(true)
+  }
 
-    if (!confirmDelete) return;
-
-    try {
-      await deleteOrder(id, token);
-
-      alert("Order deleted");
-
-      fetchOrders();
-    } catch (error) {
-      console.log(error);
-
-      alert("Delete failed");
-    }
-  };
+  const closeOrder = () => {
+    setSelectedOrder(null)
+    setShowOrders(false)
+  }
 
   if (loading) {
     return <div className="orders-loading">Loading...</div>;
@@ -170,10 +166,10 @@ const AdminOrders = () => {
 
                 <td>
                   <button
-                    onClick={() => handleDelete(order._id)}
-                    className="delete-order-btn"
+                    className="view-order-btn"
+                    onClick={() => handleViewOrder(order)}
                   >
-                    Delete
+                    <FaEye />
                   </button>
                 </td>
               </tr>
@@ -205,6 +201,12 @@ const AdminOrders = () => {
           Next
         </button>
       </div>
+      {showOrders && selectedOrder && (
+        <OrderDetailsModal
+          order={selectedOrder}
+          onClose={closeOrder}
+        />
+      )}
     </div>
   );
 };
