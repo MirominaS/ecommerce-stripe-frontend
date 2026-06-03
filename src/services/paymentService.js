@@ -40,3 +40,25 @@ export const createBuyNowCheckout = async (productId, token) => {
   );
   return response.data;
 };
+
+export const getAllPayments = async (
+  token,
+  page = 1,
+  limit = 10,
+  status = "",
+  search = "",
+) => {
+  const response = await axios.get(`${API_URL}/admin/payments`, {
+    params: {
+      page,
+      limit,
+      status,
+      search,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
