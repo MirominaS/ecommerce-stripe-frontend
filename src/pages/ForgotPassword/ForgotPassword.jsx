@@ -34,6 +34,15 @@ const ForgetPassword = () => {
     }
   };
 
+  const handleResendOTP = async () => {
+    try {
+      await forgotPassword(email);
+
+      alert("New OTP sent successfully")
+    } catch (error) {
+      alert(error.response?.data?.message || "Failed to resend OTP")
+    }
+  }
   const handleResetPassword = async () => {
     try {
       await resetPassword(email, otp, newPassword);
@@ -71,6 +80,8 @@ const ForgetPassword = () => {
             />
 
             <button onClick={handleVerifyOTP}>Verify OTP</button>
+            <button onClick={handleResendOTP}>Resend OTP</button>
+            
           </>
         )}
 
