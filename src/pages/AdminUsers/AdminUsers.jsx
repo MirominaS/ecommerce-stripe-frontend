@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContex";
-import {
-  getAdminUsers,
-  updateAdminUser,
-} from "../../services/adminService";
+import { getAdminUsers, updateAdminUser } from "../../services/adminService";
 import { FaEdit } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
-
+import { FaAngleDoubleRight } from "react-icons/fa";
+import { FaAngleDoubleLeft } from "react-icons/fa";
 import "./AdminUsers.css";
+import UserDetailsModal from "../../components/UserDetailsModal/UserDetailsModal";
 
 const AdminUsers = () => {
   const { token } = useAuth();
@@ -24,6 +23,8 @@ const AdminUsers = () => {
     role: "customer",
     isActive: true,
   });
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showUser, setShowUser] = useState(false);
 
   const fetchUsers = async () => {
     try {
@@ -84,9 +85,15 @@ const AdminUsers = () => {
     }
   };
 
-  const handleViewUser = () => {
+  const handleViewUser = (user) => {
+    setSelectedUser(user);
+    setShowUser(true);
+  };
 
-  }
+  const closeUserModel = () => {
+    setSelectedUser(null);
+    setShowUser(false);
+  };
 
   return (
     <div className="admin-users-page">
@@ -152,12 +159,12 @@ const AdminUsers = () => {
                         className="edit-btn"
                         onClick={() => handleEditClick(user)}
                       >
-                       <FaEdit />
+                        <FaEdit />
                       </button>
 
                       <button
                         className="view-btn"
-                        onClick={handleViewUser}
+                        onClick={() => handleViewUser(user)}
                       >
                         <FaEye />
                       </button>
@@ -174,7 +181,7 @@ const AdminUsers = () => {
 
       <div className="admin-users-pagination">
         <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-          Prev
+          <FaAngleDoubleLeft />
         </button>
 
         <span>
@@ -185,7 +192,7 @@ const AdminUsers = () => {
           disabled={page === totalPages}
           onClick={() => setPage((p) => p + 1)}
         >
-          Next
+          <FaAngleDoubleRight />
         </button>
       </div>
 
@@ -260,6 +267,10 @@ const AdminUsers = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {showUser && selectedUser && (
+        <UserDetailsModal user={selectedUser} onClose={closeUserModel} />
       )}
     </div>
   );
