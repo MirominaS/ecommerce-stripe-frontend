@@ -18,6 +18,7 @@ import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import AdminOrders from "./pages/AdminOrders/AdminOrders";
 import Payments from "./pages/Payments/Payments";
 import AdminUsers from "./pages/AdminUsers/AdminUsers";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +30,7 @@ function App() {
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/success" element={<Success />} />
         <Route path="/order" element={<Order />} />
         <Route
