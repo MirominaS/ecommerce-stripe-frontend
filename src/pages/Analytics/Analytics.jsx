@@ -25,19 +25,23 @@ const Analytics = () => {
 
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [filterType, setFilterType] = useState("today");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [showCustomFilter, setShowCustomFilter] = useState(false);
 
   const STATUS_COLORS = ["#3b82f6", "#22c55e", "#f59e0b", "#ef4444"];
-
   const PAYMENT_COLORS = ["#10b981", "#f59e0b", "#ef4444", "#6366f1"];
 
-  const fetchAnalytics = async (date = "", month = "") => {
+  const fetchAnalytics = async (
+    filter = "today",
+    fromDate = "",
+    toDate = "",
+  ) => {
     try {
       setLoading(true);
 
-      const data = await getAdminAnalytics(token, date, month);
+      const data = await getAdminAnalytics(token, filter, fromDate, toDate);
 
       setAnalytics(data.analytics);
     } catch (error) {
@@ -49,34 +53,9 @@ const Analytics = () => {
 
   useEffect(() => {
     if (token) {
-      fetchAnalytics();
+      fetchAnalytics("today");
     }
   }, [token]);
-
-  const handleDateChange = (e) => {
-    const date = e.target.value;
-
-    setSelectedDate(date);
-    setSelectedMonth("");
-
-    fetchAnalytics(date, "");
-  };
-
-  const handleMonthChange = (e) => {
-    const month = e.target.value;
-
-    setSelectedMonth(month);
-    setSelectedDate("");
-
-    fetchAnalytics("", month);
-  };
-
-  const handleShowAll = () => {
-    setSelectedDate("");
-    setSelectedMonth("");
-
-    fetchAnalytics();
-  };
 
   const ProductRevenueTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -109,10 +88,98 @@ const Analytics = () => {
   return (
     <div className="analytics-page">
       <div className="analytics-header">
-        <h1>Analytics Dashboard</h1>
+        <div>
+          <h1>Analytics Dashboard</h1>
+          <p>Monitor revenue, orders and performance</p>
+        </div>
 
-        <p>Monitor revenue, orders and performance</p>
+        <select
+          className="analytics-period-select"
+          value={filterType}
+          onChange={(e) => {
+            const value = e.target.value;
+            setFilterType(value);
+
+            if (value === "custom") {
+              setShowCustomFilter(true);
+            } else {
+              setShowCustomFilter(false);
+              fetchAnalytics(value);
+            }
+          }}
+        >
+          <option value="today">Today</option>
+          <option value="week">This Week</option>
+          <option value="month">This Month</option>
+          <option value="year">This Year</option>
+          <option value="lastyear">Last Year</option>
+          <option value="custom">Custom</option>
+        </select>
       </div>
+
+      {showCustomFilter && (
+        <div
+          className="custom-filter-overlay"
+          onClick={() => setShowCustomFilter(false)}
+        >
+          <div
+            className="custom-filter-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3>Custom Date Range</h3>
+
+            <div className="custom-filter-inputs">
+              <div className="custom-input-group">
+                <label>From Date</label>
+
+                <input
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
+              </div>
+
+              <div className="custom-input-group">
+                <label>To Date</label>
+
+                <input
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="custom-filter-actions">
+              <button
+                className="apply-filter-btn"
+                onClick={() => {
+                  if (!fromDate || !toDate) {
+                    alert("Please select both dates");
+                    return;
+                  }
+
+                  fetchAnalytics("custom", fromDate, toDate);
+
+                  setShowCustomFilter(false);
+                }}
+              >
+                Apply Filter
+              </button>
+
+              <button
+                className="cancel-filter-btn"
+                onClick={() => {
+                  setShowCustomFilter(false);
+                  setFilterType("today");
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* STATS */}
 
@@ -139,37 +206,6 @@ const Analytics = () => {
           <h3>Top Products</h3>
 
           <p>{analytics.topSellingProducts?.length}</p>
-        </div>
-      </div>
-
-      {/* FILTERS */}
-
-      <div className="analytics-filters-card">
-        <div className="analytics-filters">
-          <div className="filter-group">
-            <label>Filter By Date</label>
-
-            <input
-              className="filter-input"
-              type="date"
-              value={selectedDate}
-              onChange={handleDateChange}
-            />
-          </div>
-          <div className="filter-group">
-            <label>Filter By Month</label>
-
-            <input
-              className="filter-input"
-              type="month"
-              value={selectedMonth}
-              onChange={handleMonthChange}
-            />
-          </div>
-
-          <button className="show-all-btn" onClick={handleShowAll}>
-            Show All
-          </button>
         </div>
       </div>
 
