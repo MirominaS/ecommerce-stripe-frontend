@@ -35,12 +35,10 @@ const Login = () => {
 
       alert("Login successful");
 
-      if(data.user.role === "admin") {
-        navigate("/admin/dashboard")
+      if (data.user.role === "admin") {
+        navigate("/admin/dashboard");
       } else {
-        navigate(
-          from === "/cart" ? "/checkout" : from
-        )
+        navigate(from === "/cart" ? "/checkout" : from);
       }
     } catch (error) {
       console.error(error);
@@ -70,6 +68,13 @@ const Login = () => {
             placeholder="Password"
             onChange={handleChange}
           />
+
+          <p
+            className="forgot-password-link"
+            onClick={() => navigate("/forgot-password")}
+          >
+            Forgot Password?
+          </p>
 
           <button className="login-btn" type="submit">
             Login
