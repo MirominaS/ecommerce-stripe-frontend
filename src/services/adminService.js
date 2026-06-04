@@ -3,98 +3,70 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const getAdminSummary = async (token) => {
-    const response = await axios.get(
-        `${API_URL}/admin/summary`,
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        }
-    )
-    return response.data
-}
+  const response = await axios.get(`${API_URL}/admin/summary`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
 
 export const getAdminAnalytics = async (
   token,
-  date = "",
-  month = ""
+  filter = "today",
+  fromDate = "",
+  toDate = "",
 ) => {
-  const response = await axios.get(
-    `${API_URL}/admin/analytics`,
-    {
-      params: {
-        date,
-        month,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axios.get(`${API_URL}/admin/analytics`, {
+    params: {
+      filter,
+      fromDate,
+      toDate,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
 
 export const getAdminProducts = async (token) => {
-  const response = await axios.get(
-    `${API_URL}/products`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axios.get(`${API_URL}/products`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
 
-export const createProduct = async (
-  productData,
-  token
-) => {
-  const response = await axios.post(
-    `${API_URL}/products`,
-    productData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export const createProduct = async (productData, token) => {
+  const response = await axios.post(`${API_URL}/products`, productData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
 
-export const updateProduct = async (
-  id,
-  productData,
-  token
-) => {
-  const response = await axios.put(
-    `${API_URL}/products/${id}`,
-    productData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export const updateProduct = async (id, productData, token) => {
+  const response = await axios.put(`${API_URL}/products/${id}`, productData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
 
-export const deleteProduct = async (
-  id,
-  token
-) => {
-  const response = await axios.delete(
-    `${API_URL}/products/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export const deleteProduct = async (id, token) => {
+  const response = await axios.delete(`${API_URL}/products/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
@@ -124,15 +96,11 @@ export const getAdminUserById = async (token, id) => {
 
 // UPDATE USER
 export const updateAdminUser = async (token, id, data) => {
-  const response = await axios.put(
-    `${API_URL}/auth/${id}`,
-    data,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axios.put(`${API_URL}/auth/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return response.data;
 };
