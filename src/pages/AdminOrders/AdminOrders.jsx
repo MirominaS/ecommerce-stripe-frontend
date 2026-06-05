@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContex";
 import {
   deleteOrder,
+  exportOrders,
   getAllOrders,
   updateOrderStatus,
 } from "../../services/orderService";
@@ -9,8 +10,10 @@ import { FaEye } from "react-icons/fa";
 import OrderDetailsModal from "../../components/OrderDetailsModal/OrderDetailsModal";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { FaAngleDoubleLeft } from "react-icons/fa";
-
+import { BiExport } from "react-icons/bi";
+import AlertModal from "../../components/AlertModal/AlertModal";
 import "./AdminOrders.css";
+import { showError, showSuccess } from "../../utils/toast";
 
 const AdminOrders = () => {
   const { token } = useAuth();
@@ -23,6 +26,19 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(true);
   const [showOrders, setShowOrders] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [exportFrom, setExportFrom] = useState("");
+  const [exportTo, setExportTo] = useState("");
+  const [exportStatus, setExportStatus] = useState("");
+  const [isExporting, setIsExporting] = useState(false);
+  const [alertModal, setAlertModal] = useState({
+    isOpen: false,
+    title: "",
+    message: "",
+    type: "success",
+    showCancel: false,
+    onConfirm: null,
+  });
 
   const fetchOrders = async () => {
     try {
@@ -54,34 +70,39 @@ const AdminOrders = () => {
       return;
     }
 
-    const confirmed = window.confirm(
-      `Change order status from "${currentStatus}" to "${newStatus}"?\n\nThis action cannot be reversed.`,
-    );
+    setAlertModal({
+      isOpen: true,
+      title: "Update Order Status",
+      message: `Change order status from "${currentStatus}" to "${newStatus}"?\n\nThis action cannot be reversed.`,
+      type: "warning",
+      showCancel: true,
 
-    if (!confirmed) {
-      fetchOrders();
-      return;
-    }
+      onConfirm: async () => {
+        setAlertModal((prev) => ({
+          ...prev,
+          isOpen: false,
+        }));
 
-    try {
-      await updateOrderStatus(orderId, newStatus, token);
+        try {
+          await updateOrderStatus(orderId, newStatus, token);
 
-      fetchOrders();
-    } catch (error) {
-      console.log(error);
+          fetchOrders();
 
-      alert("Status update failed");
-    }
+          showSuccess("Order status updated successfully");
+        } catch (error) {
+          console.log(error);
+
+          showError("Status update failed");
+        }
+      },
+    });
   };
+
   const statusOptions = {
     processing: ["processing", "shipped", "cancelled"],
-
     shipped: ["shipped", "delivered"],
-
     delivered: ["delivered", "refunded"],
-
     cancelled: ["cancelled"],
-
     refunded: ["refunded"],
   };
 
@@ -94,6 +115,39 @@ const AdminOrders = () => {
   const closeOrder = () => {
     setSelectedOrder(null);
     setShowOrders(false);
+  };
+
+  // HANDLE EXPORT ORDERS
+  const handleExport = async () => {
+    if (!exportFrom || !exportTo) {
+      showError("Please select date and range");
+      return;
+    }
+    try {
+      setIsExporting(true);
+      const blob = await exportOrders(token, {
+        from: exportFrom,
+        to: exportTo,
+        status: exportStatus,
+      });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `orders-${exportFrom}-${exportTo}.csv`;
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      setShowExportModal(false);
+      setExportFrom("");
+      setExportTo("");
+      setExportStatus("");
+      showSuccess("Export completed");
+    } catch (error) {
+      console.log(error);
+      showError(error.response?.data?.message || "Export failed");
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   if (loading) {
@@ -110,6 +164,18 @@ const AdminOrders = () => {
 
           <p>Manage and track customer orders</p>
         </div>
+        <div className="orders-header-actions">
+          <button
+            className="export-btn"
+            onClick={() => {
+              console.log("Clicked");
+              setShowExportModal(true);
+            }}
+          >
+            <BiExport />
+            Export Orders
+          </button>
+        </div>
       </div>
 
       {/* FILTERS */}
@@ -125,9 +191,10 @@ const AdminOrders = () => {
 
         <select
           value={status}
-          onChange={(e) =>
-            handleStatusChange(order._id, order.orderStatus, e.target.value)
-          }
+          onChange={(e) => {
+            setStatus(e.target.value);
+            setPage(1);
+          }}
           className="orders-filter-select"
         >
           <option value="">All Status</option>
@@ -224,6 +291,69 @@ const AdminOrders = () => {
       </div>
       {showOrders && selectedOrder && (
         <OrderDetailsModal order={selectedOrder} onClose={closeOrder} />
+      )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        title={alertModal.title}
+        message={alertModal.message}
+        type={alertModal.type}
+        showCancel={alertModal.showCancel}
+        onConfirm={alertModal.onConfirm}
+        onClose={() =>
+          setAlertModal((prev) => ({
+            ...prev,
+            isOpen: false,
+          }))
+        }
+      />
+      {/* export modal */}
+      {showExportModal && (
+        <>
+          {console.log("MODAL RENDERING")}
+          <div className="export-modal-overlay">
+            <div className="export-modal">
+              <h2>Export Orders</h2>
+
+              <label>From</label>
+              <input
+                type="date"
+                value={exportFrom}
+                onChange={(e) => setExportFrom(e.target.value)}
+              />
+
+              <label>To</label>
+              <input
+                type="date"
+                value={exportTo}
+                onChange={(e) => setExportTo(e.target.value)}
+              />
+
+              <label>Status</label>
+              <select
+                value={exportStatus}
+                onChange={(e) => setExportStatus(e.target.value)}
+              >
+                <option value="">All</option>
+                <option value="processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="refunded">Refunded</option>
+              </select>
+
+              <div className="export-actions">
+                <button className="export-btn" onClick={() => setShowExportModal(false)}>
+                  Cancel
+                </button>
+
+                <button className="export-btn" disabled={isExporting} onClick={handleExport}>
+                  {isExporting ? "Exporting..." : "Export"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

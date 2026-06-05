@@ -72,3 +72,21 @@ export const deleteOrder = async (
 
   return response.data;
 };
+
+export const exportOrders = async (token,{from,to,status}) => {
+  const response = await axios.get(
+    `${API_URL}/orders/export`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        from,
+        to,
+        status,
+      },
+      responseType: "blob",
+    }
+  )
+  return response.data;
+}

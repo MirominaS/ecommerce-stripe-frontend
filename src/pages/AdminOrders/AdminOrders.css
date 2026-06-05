@@ -6,6 +6,10 @@
 
 .orders-header {
   margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .orders-header h1 {
@@ -17,6 +21,12 @@
 .orders-header p {
   color: #6b7280;
   font-size: 15px;
+}
+
+
+.orders-header-actions {
+  display: flex;
+  align-items: center;
 }
 
 /* FILTERS */
@@ -52,6 +62,67 @@
 .orders-filter-select:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.export-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.export-modal {
+  width: 400px;
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.export-modal input,
+.export-modal select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.export-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.export-btn {
+  background: #111827;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.export-btn:hover {
+  background: #1d4ed8;
 }
 
 /* TABLE */
