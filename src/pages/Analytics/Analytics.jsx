@@ -17,8 +17,10 @@ import {
 
 import { useAuth } from "../../context/AuthContex";
 import { getAdminAnalytics } from "../../services/adminService";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 import "./Analytics.css";
+import { showWarning } from "../../utils/toast";
 
 const Analytics = () => {
   const { token } = useAuth();
@@ -75,6 +77,18 @@ const Analytics = () => {
     }
 
     return null;
+  };
+
+  const handleApplyFilter = () => {
+    if (!fromDate || !toDate) {
+      showWarning("Please select both From Date and To Date")
+
+      return;
+    }
+
+    fetchAnalytics("custom", fromDate, toDate);
+
+    setShowCustomFilter(false);
   };
 
   if (loading) {
@@ -151,19 +165,7 @@ const Analytics = () => {
             </div>
 
             <div className="custom-filter-actions">
-              <button
-                className="apply-filter-btn"
-                onClick={() => {
-                  if (!fromDate || !toDate) {
-                    alert("Please select both dates");
-                    return;
-                  }
-
-                  fetchAnalytics("custom", fromDate, toDate);
-
-                  setShowCustomFilter(false);
-                }}
-              >
+              <button className="apply-filter-btn" onClick={handleApplyFilter}>
                 Apply Filter
               </button>
 
@@ -367,6 +369,7 @@ const Analytics = () => {
           </ResponsiveContainer>
         </div>
       </div>
+
     </div>
   );
 };
