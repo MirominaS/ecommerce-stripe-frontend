@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContex";
 import { updateProduct } from "../../services/adminService";
 import { getProductById } from "../../services/productService";
 import "./EditProduct.css";
+import { showError, showSuccess } from "../../utils/toast";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -13,6 +14,7 @@ const EditProduct = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    sku: "",
     title: "",
     description: "",
     price: "",
@@ -48,13 +50,13 @@ const EditProduct = () => {
     try {
       await updateProduct(id, formData, token);
 
-      alert("Product updated");
+      showSuccess("Product updated")
 
       navigate("/admin/products");
     } catch (error) {
       console.log(error);
 
-      alert("Update failed");
+      showError("Update failed")
     }
   };
 
@@ -77,6 +79,18 @@ const EditProduct = () => {
               value={formData.title}
               onChange={handleChange}
               placeholder="Enter product title"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>SKU</label>
+
+            <input
+              type="text"
+              name="sku"
+              value={formData.sku}
+              onChange={handleChange}
+              placeholder="Enter SKU"
             />
           </div>
 
