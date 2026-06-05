@@ -6,6 +6,7 @@ import {
   verifyOTP,
 } from "../../services/authService";
 import "./forgotPassword.css";
+import { showError, showSuccess } from "../../utils/toast";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -17,39 +18,38 @@ const ForgetPassword = () => {
   const handleSendOTP = async () => {
     try {
       await forgotPassword(email);
-      alert("OTP sent successfully");
+      showSuccess("OTP sent successfully")
       setStep(2);
     } catch (error) {
-      alert(error.response?.data?.message);
+      showError(error.response?.data?.message)
     }
   };
 
   const handleVerifyOTP = async () => {
     try {
       await verifyOTP(email, otp);
-      alert("OTP verified");
+      showSuccess("OTP verified")
       setStep(3);
     } catch (error) {
-      alert(error.response?.data?.message);
+      showError(error.response?.data?.message)
     }
   };
 
   const handleResendOTP = async () => {
     try {
       await forgotPassword(email);
-
-      alert("New OTP sent successfully")
+      showSuccess("New OTP sent successfully")
     } catch (error) {
-      alert(error.response?.data?.message || "Failed to resend OTP")
+      showError(error.response?.data?.message || "Failed to resend OTP")
     }
   }
   const handleResetPassword = async () => {
     try {
       await resetPassword(email, otp, newPassword);
-      alert("Password reset successfully");
+      showSuccess("Password reset successfully");
       navigate("/login");
     } catch (error) {
-      alert(error.response?.data?.message);
+      showError(error.response?.data?.message);
     }
   };
   return (
