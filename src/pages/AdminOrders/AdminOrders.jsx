@@ -123,6 +123,22 @@ const AdminOrders = () => {
       showError("Please select date and range");
       return;
     }
+
+    const from = new Date(exportFrom);
+    const to = new Date(exportTo);
+
+    const days = (to - from) / (1000 * 60 * 60 * 24);
+
+    if (days > 90) {
+      showError("Export range cannot exceed 90 days");
+      return;
+    }
+
+    if (from > to) {
+      showError("From date cannot be greater than To date");
+      return;
+    }
+
     try {
       setIsExporting(true);
       const blob = await exportOrders(token, {
@@ -316,6 +332,7 @@ const AdminOrders = () => {
               <h2>Export Orders</h2>
 
               <label>From</label>
+              <p>Export limitted to 90 days</p>
               <input
                 type="date"
                 value={exportFrom}
@@ -343,11 +360,18 @@ const AdminOrders = () => {
               </select>
 
               <div className="export-actions">
-                <button className="export-btn" onClick={() => setShowExportModal(false)}>
+                <button
+                  className="export-btn"
+                  onClick={() => setShowExportModal(false)}
+                >
                   Cancel
                 </button>
 
-                <button className="export-btn" disabled={isExporting} onClick={handleExport}>
+                <button
+                  className="export-btn"
+                  disabled={isExporting}
+                  onClick={handleExport}
+                >
                   {isExporting ? "Exporting..." : "Export"}
                 </button>
               </div>
