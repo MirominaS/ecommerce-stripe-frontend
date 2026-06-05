@@ -4,6 +4,7 @@ import { addToCart } from "../../services/cartService";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../services/productService";
+import { showError, showInfo, showWarning } from "../../utils/toast";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -33,16 +34,16 @@ const ProductDetails = () => {
   const handleAddToCart = async () => {
     try {
       if (product.stock === 0) {
-        alert("Product is out of stock");
+        showWarning("Product is out of stock");
         return;
       }
 
       addToCart(product);
 
-      alert("Product added to cart");
+      showInfo("Product added to cart");
     } catch (error) {
       console.log(error);
-      alert("Failed to add product to cart");
+      showError("Failed to add product to cart");
     }
   };
 
