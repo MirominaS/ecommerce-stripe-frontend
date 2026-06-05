@@ -10,6 +10,7 @@ const CreateProduct = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    sku: "",
     title: "",
     description: "",
     price: "",
@@ -58,6 +59,18 @@ const CreateProduct = () => {
               type="text"
               name="title"
               placeholder="Enter product title"
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>SKU</label>
+
+            <input
+              type="text"
+              name="sku"
+              placeholder="Enter SKU (e.g. PRD-001)"
+              value={formData.sku}
               onChange={handleChange}
             />
           </div>
