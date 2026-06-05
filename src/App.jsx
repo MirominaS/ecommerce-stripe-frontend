@@ -19,8 +19,13 @@ import AdminOrders from "./pages/AdminOrders/AdminOrders";
 import Payments from "./pages/Payments/Payments";
 import AdminUsers from "./pages/AdminUsers/AdminUsers";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+
 function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -53,6 +58,12 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      theme="light"
+    />
+    </>
   );
 }
 
