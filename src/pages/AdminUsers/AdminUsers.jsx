@@ -7,6 +7,8 @@ import { FaAngleDoubleRight } from "react-icons/fa";
 import { FaAngleDoubleLeft } from "react-icons/fa";
 import "./AdminUsers.css";
 import UserDetailsModal from "../../components/UserDetailsModal/UserDetailsModal";
+import AlertModal from "../../components/AlertModal/AlertModal";
+import { showError, showSuccess } from "../../utils/toast";
 
 const AdminUsers = () => {
   const { token } = useAuth();
@@ -25,6 +27,14 @@ const AdminUsers = () => {
   });
   const [selectedUser, setSelectedUser] = useState(null);
   const [showUser, setShowUser] = useState(false);
+  const [alertModal, setAlertModal] = useState({
+    isOpen: false,
+    title: "",
+    message: "",
+    type: "success",
+    showCancel: false,
+    onConfirm: null,
+  });
 
   const fetchUsers = async () => {
     try {
@@ -65,24 +75,42 @@ const AdminUsers = () => {
       isActive: user.isActive,
     });
   };
+  const handleUpdate = () => {
+    setAlertModal({
+      isOpen: true,
+      title: "Update User",
+      message: "Are you sure you want to save these changes?",
+      type: "warning",
+      showCancel: true,
 
-  const handleUpdate = async () => {
-    try {
-      await updateAdminUser(token, editingUser._id, formData);
+      onConfirm: async () => {
+        setAlertModal((prev) => ({
+          ...prev,
+          isOpen: false,
+        }));
 
-      setEditingUser(null);
+        try {
+          await updateAdminUser(token, editingUser._id, formData);
 
-      setFormData({
-        name: "",
-        email: "",
-        role: "customer",
-        isActive: true,
-      });
+          setEditingUser(null);
 
-      fetchUsers();
-    } catch (error) {
-      console.log(error);
-    }
+          setFormData({
+            name: "",
+            email: "",
+            role: "customer",
+            isActive: true,
+          });
+
+          fetchUsers();
+
+          showSuccess("User updated successfully.")
+        } catch (error) {
+          console.log(error);
+
+          showError("Failed to update user")
+        }
+      },
+    });
   };
 
   const handleViewUser = (user) => {
@@ -199,8 +227,8 @@ const AdminUsers = () => {
       {/* MODAL */}
 
       {editingUser && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="edit-modal-overlay">
+          <div className="edit-modal-content">
             <h2>Edit User</h2>
 
             <input
@@ -253,7 +281,7 @@ const AdminUsers = () => {
               <option value="false">Inactive</option>
             </select>
 
-            <div className="modal-actions">
+            <div className="edit-modal-actions">
               <button className="save-btn" onClick={handleUpdate}>
                 Save
               </button>
@@ -272,6 +300,21 @@ const AdminUsers = () => {
       {showUser && selectedUser && (
         <UserDetailsModal user={selectedUser} onClose={closeUserModel} />
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        title={alertModal.title}
+        message={alertModal.message}
+        type={alertModal.type}
+        showCancel={alertModal.showCancel}
+        onConfirm={alertModal.onConfirm}
+        onClose={() =>
+          setAlertModal((prev) => ({
+            ...prev,
+            isOpen: false,
+          }))
+        }
+      />
     </div>
   );
 };

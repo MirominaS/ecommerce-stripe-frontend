@@ -180,7 +180,7 @@
 
 /* Modal */
 
-.modal-overlay {
+.edit-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -190,7 +190,7 @@
   z-index: 999;
 }
 
-.modal-content {
+.edit-modal-content {
   width: 420px;
   background: white;
   border-radius: 20px;
@@ -199,13 +199,13 @@
     rgba(0, 0, 0, 0.15);
 }
 
-.modal-content h2 {
+.edit-modal-content h2 {
   margin-bottom: 20px;
   color: #111827;
 }
 
-.modal-content input,
-.modal-content select {
+.edit-modal-content input,
+.edit-modal-content select {
   width: 100%;
   padding: 12px 14px;
   margin-bottom: 14px;
@@ -214,15 +214,15 @@
   outline: none;
 }
 
-.modal-content input:focus,
-.modal-content select:focus {
+.edit-modal-content input:focus,
+.edit-modal-content select:focus {
   border-color: #2563eb;
 
   box-shadow: 0 0 0 4px
     rgba(37, 99, 235, 0.12);
 }
 
-.modal-actions {
+.edit-modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
