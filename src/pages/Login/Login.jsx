@@ -4,6 +4,7 @@ import "./Login.css";
 import { useAuth } from "../../context/AuthContex.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/authService.js";
+import { showError, showSuccess } from "../../utils/toast.js";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Login = () => {
 
       login(data.token, data.user);
 
-      alert("Login successful");
+      showSuccess("Login successful");
 
       if (data.user.role === "admin") {
         navigate("/admin/dashboard");
@@ -43,7 +44,7 @@ const Login = () => {
     } catch (error) {
       console.error(error);
 
-      alert("Login failed");
+      showError("Login failed");
     }
   };
 
