@@ -224,7 +224,7 @@ const AdminUsers = () => {
         </button>
       </div>
 
-      {/* MODAL */}
+      {/* MODAL FOR EDIT*/}
 
       {editingUser && (
         <div className="edit-modal-overlay">
@@ -233,23 +233,13 @@ const AdminUsers = () => {
 
             <input
               value={formData.name}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  name: e.target.value,
-                })
-              }
+              readOnly
               placeholder="Name"
             />
 
             <input
               value={formData.email}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  email: e.target.value,
-                })
-              }
+              readOnly
               placeholder="Email"
             />
 
