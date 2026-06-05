@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authService.js";
+import { showError, showSuccess } from "../../utils/toast.js";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -28,13 +29,13 @@ const Register = () => {
 
       console.log(data);
 
-      alert("Registration successful");
+      showSuccess("Registration successful");
 
       navigate("/login");
     } catch (error) {
       console.log(error);
 
-      alert("Registration failed");
+      showError("Registration failed");
     }
   };
 
