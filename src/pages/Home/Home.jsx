@@ -6,6 +6,7 @@ import { addToCart } from "../../services/cartService";
 import { FaCartArrowDown } from "react-icons/fa";
 import Navbar from "../../components/Navbar/Navbar";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import { showError, showInfo, showSuccess, showWarning } from "../../utils/toast";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -33,13 +34,13 @@ const Home = () => {
 
  const handleAddToCart = (product) => {
   if (product.stock === 0) {
-    alert("Product is out of stock");
+    showWarning("Product is out of stock");
     return;
   }
 
   addToCart(product);
 
-  alert("Product added to cart");
+  showInfo("Product added to cart");
 };
 
   const handleBuyNow = async (productId) => {
@@ -47,7 +48,7 @@ const Home = () => {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        alert("Please login to buy products");
+        showWarning("Please login to buy products");
 
         navigate("/login", {
           state: {
@@ -62,7 +63,7 @@ const Home = () => {
     } catch (error) {
       console.log(error);
 
-      alert("Failed to proceed to checkout");
+      showError("Failed to proceed to checkout");
     }
   };
 
