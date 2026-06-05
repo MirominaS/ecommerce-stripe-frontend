@@ -7,7 +7,7 @@ import "./AdminProducts.css";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
-import { FiUpload } from "react-icons/fi";
+import { LuImport } from "react-icons/lu";
 import Papa from "papaparse";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import { FaAngleDoubleRight } from "react-icons/fa";
@@ -139,7 +139,7 @@ const AdminProducts = () => {
             disabled={isImporting}
             onClick={() => document.getElementById("csvInput").click()}
           >
-            <FiUpload />
+            <LuImport />
             {isImporting ? "Importing..." : "Import CSV"}
           </button>
 
