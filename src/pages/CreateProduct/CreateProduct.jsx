@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContex";
 import { createProduct } from "../../services/adminService";
 import "./CreateProduct.css";
+import { showError, showSuccess } from "../../utils/toast";
 
 const CreateProduct = () => {
   const { token } = useAuth();
@@ -32,13 +33,13 @@ const CreateProduct = () => {
     try {
       await createProduct(formData, token);
 
-      alert("Product created");
+      showSuccess("Product created");
 
       navigate("/admin/products");
     } catch (error) {
       console.log(error);
 
-      alert("Create failed");
+      showError("Create failed");
     }
   };
 
