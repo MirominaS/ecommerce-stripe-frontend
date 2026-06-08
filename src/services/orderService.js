@@ -39,6 +39,26 @@ export const getAllOrders = async (
   return response.data;
 };
 
+export const createOrder = async (
+  token,
+  items,
+  sessionId = null
+) => {
+  const response = await axios.post(
+    `${API_URL}/orders`,
+    {
+      items,
+      sessionId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+   return response.data;
+}
+
 export const updateOrderStatus = async (
   id,
   status,
