@@ -5,6 +5,7 @@ import "./Order.css";
 import Navbar from "../../components/Navbar/Navbar";
 import { FaEye } from "react-icons/fa";
 import OrderDetailsModal from "../../components/OrderDetailsModal/OrderDetailsModal";
+import Footer from "../../components/Footer/Footer";
 
 const Order = () => {
   const navigate = useNavigate();
@@ -96,6 +97,7 @@ const Order = () => {
           <OrderDetailsModal order={selectedOrder} onClose={closeModal} />
         )}
       </div>
+      <Footer/>
     </>
   );
 };
