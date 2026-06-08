@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../services/productService";
 import { showError, showInfo, showWarning } from "../../utils/toast";
+import Footer from "../../components/Footer/Footer";
+import Navbar from "../../components/Navbar/Navbar";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -56,6 +58,8 @@ const ProductDetails = () => {
   }
 
   return (
+    <>
+    <Navbar/>
     <div className="product-details-page">
       <div className="product-details-container">
         <div className="product-image-section">
@@ -98,7 +102,10 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+      
     </div>
+    <Footer/>
+    </>
   );
 };
 
