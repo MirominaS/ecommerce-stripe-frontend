@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart, updateCartItem, removeCartItem,} from "../../services/cartService";
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -182,6 +183,7 @@ const Cart = () => {
             </div>
           </div>
         )}
+        <Footer/>
       </div>
     </>
   );
