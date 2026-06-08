@@ -31,11 +31,7 @@ export const getAdminAnalytics = async (
   return response.data;
 };
 
-export const getAdminProducts = async (
-  token,
-  page = 1,
-  limit = 10
-) => {
+export const getAdminProducts = async (token, page = 1, limit = 10) => {
   const response = await axios.get(`${API_URL}/products`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -111,4 +107,25 @@ export const updateAdminUser = async (token, id, data) => {
   });
 
   return response.data;
+};
+
+export const getSetting = async (token) => {
+  const response = await axios.get(`${API_URL}/admin/setting`);
+
+  return response.data.settings;
+};
+
+export const updateSetting = async (token, data) => {
+  const response = await axios.put(`${API_URL}/admin/setting`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const getStripeConfig = async () => {
+  const response = await axios.get(`${API_URL}/admin/stripe-config`);
+
+  return response.data.publishableKey;
 };
