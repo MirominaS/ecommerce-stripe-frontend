@@ -48,7 +48,10 @@ const Home = () => {
       try {
         const data = await getSetting();
 
-        setSettings(data);
+        setSettings({
+          heroText: data.HERO_TEXT || "Discover Amazing Products",
+          heroSubText: data.HERO_SUB_TEXT || "New Collection 2026",
+        });
       } catch (error) {
         console.log(error);
       }
