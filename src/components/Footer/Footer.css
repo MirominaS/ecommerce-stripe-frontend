@@ -1,5 +1,5 @@
 .footer {
-  background: #111827;
+  background: var(--primary-color);
   color: white;
   margin-top: 80px;
 }
@@ -54,14 +54,11 @@
   margin-top: 20px;
 }
 
-.footer-socials svg {
+.footer-socials a {
+  color: white;
   font-size: 22px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.footer-socials svg:hover {
-  transform: translateY(-3px);
+  display: flex;
+  align-items: center;
 }
 
 .footer-bottom {
