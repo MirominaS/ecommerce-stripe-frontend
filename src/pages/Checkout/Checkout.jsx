@@ -4,7 +4,7 @@ import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
-import { stripePromise } from "../../stripe";
+import { getStripePromise } from "../../utils/getStripePromise";
 import {
   createCheckout,
   createBuyNowCheckout,
@@ -14,11 +14,14 @@ import { useParams } from "react-router-dom";
 const Checkout = () => {
   const { productId } = useParams();
   const [clientSecret, setClientSecret] = useState("");
+  const [stripePromise, setStripePromise] = useState(null);
 
   useEffect(() => {
     const fetchCheckout = async () => {
       try {
         const token = localStorage.getItem("token");
+        const stripe = await getStripePromise();
+        setStripePromise(stripe);
 
         const data = productId
           ? await createBuyNowCheckout(productId, token)
@@ -36,7 +39,7 @@ const Checkout = () => {
     fetchCheckout();
   }, []);
 
-  if (!clientSecret) {
+  if (!clientSecret || !stripePromise) {
     return (
       <div className="checkout-loading">
         <h1>Loading...</h1>
