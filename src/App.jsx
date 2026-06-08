@@ -22,6 +22,7 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
+import AdminSetting from "./pages/AdminSetting/AdminSetting";
 
 function App() {
   return (
@@ -54,7 +55,7 @@ function App() {
           <Route path="orders" element={<AdminOrders/>}/>
           <Route path="payments" element={<Payments/>}/>
           <Route path="users" element={<AdminUsers/>}/>
-
+          <Route path="setting" element={<AdminSetting/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
