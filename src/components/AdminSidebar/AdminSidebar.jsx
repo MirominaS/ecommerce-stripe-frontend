@@ -15,6 +15,7 @@ const AdminSidebar = () => {
     { name: "Payments", path: "/admin/payments" },
     { name: "Analytics", path: "/admin/analytics" },
     { name: "Users", path: "/admin/users" },
+    { name: "Setting", path: "/admin/setting" },
   ];
 
   const handleLogout = () => {
