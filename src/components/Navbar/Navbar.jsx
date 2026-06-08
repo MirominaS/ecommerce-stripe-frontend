@@ -17,7 +17,9 @@ const Navbar = () => {
         try {
           const data = await getSetting();
   
-          setSettings(data);
+          setSettings({
+            logoName: data.LOGO_NAME || "NYAshop",
+          });
         } catch (error) {
           console.log(error);
         }

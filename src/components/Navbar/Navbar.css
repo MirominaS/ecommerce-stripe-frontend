@@ -1,6 +1,6 @@
 .navbar {
   height: 80px;
-  background: white;
+  background: var(--background-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,12 +15,12 @@
 .navbar-logo {
   font-size: 28px;
   font-weight: 700;
-  color: #111827;
+  color: var(--primary-color);
   cursor: pointer;
 }
 .custom-link {
   text-decoration: none;
-  color: #111827;
+  color: var(--primary-color);
 }
 /* ACTIONS */
 
@@ -38,20 +38,20 @@
   gap: 8px;
   cursor: pointer;
   font-size: 15px;
-  color: #111827;
+  color: var(--primary-color);
   padding: 10px 14px;
   border-radius: 10px;
   transition: 0.3s;
 }
 
 .nav-icon-btn:hover {
-  background: #f3f4f6;
+  background: rgb(243, 244, 246);
 }
 
 .nav-login-btn {
   border: none;
-  background: #111827;
-  color: white;
+  background: var(--primary-color);
+  color: var(--secondary-text-color);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -63,7 +63,7 @@
 }
 
 .nav-login-btn:hover {
-  background: #2563eb;
+  background: var(--secondary-color);
 }
 
 /* MOBILE */
