@@ -58,6 +58,22 @@
   transform: translateY(-3px);
 }
 
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 30px 0;
+  justify-content: center;
+}
+
+.filters-container input,
+.filters-container select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  min-width: 180px;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(
