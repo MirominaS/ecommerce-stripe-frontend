@@ -6,7 +6,9 @@ export const getProducts = async (
   limit = 10,
   search = "",
   category = "",
-  sort = ""
+  sort = "",
+  maxPrice = "",
+  minPrice = ""
 ) => {
   const response = await axios.get(`${API_URL}/products`, {
     params: {
@@ -15,6 +17,8 @@ export const getProducts = async (
       search,
       category,
       sort,
+      maxPrice,
+      minPrice,
     },
   });
 

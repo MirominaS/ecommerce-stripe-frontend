@@ -14,12 +14,19 @@ import {
 } from "../../utils/toast";
 import Footer from "../../components/Footer/Footer";
 import { getSetting } from "../../services/adminService";
+import { addToWishlist } from "../../services/wishlistService";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [sort, setSort] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [settings, setSettings] = useState({
     heroText: "Discover Amazing Products",
     heroSubText: "New Collection 2026",
@@ -30,9 +37,22 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts();
+        const data = await getProducts(
+          1,
+          100,
+          search,
+          category,
+          sort,
+          minPrice,
+          maxPrice,
+        );
 
         setProducts(data.products);
+        if (!category) {
+          setCategories([
+            ...new Set(data.products.map((product) => product.category)),
+          ]);
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -41,7 +61,7 @@ const Home = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [search, category, sort, minPrice, maxPrice]);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -70,6 +90,12 @@ const Home = () => {
 
     showInfo("Product added to cart");
   };
+
+  const handleWishlist = (product) => {
+    addToWishlist(product)
+
+    showSuccess("Added to wishlist")
+  }
 
   const handleBuyNow = async (productId) => {
     try {
@@ -129,6 +155,52 @@ const Home = () => {
           </div>
         </div>
 
+        <div className="filters-container">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="number"
+            placeholder="Min Price"
+            value={minPrice}
+            onChange={(e) => setMinPrice(e.target.value)}
+          />
+
+          <input
+            type="number"
+            placeholder="Max Price"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+          />
+
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="">Default</option>
+
+            <option value="price_asc">Price Low → High</option>
+
+            <option value="price_desc">Price High → Low</option>
+
+            <option value="newest">Newest</option>
+          </select>
+        </div>
+
         <div className="products-grid">
           {products.map((product) => (
             <ProductCard
@@ -136,6 +208,7 @@ const Home = () => {
               product={product}
               onAddToCart={handleAddToCart}
               onBuyNow={handleBuyNow}
+              onWishlist={handleWishlist}
               onView={(id) => navigate(`/products/${id}`)}
             />
           ))}
