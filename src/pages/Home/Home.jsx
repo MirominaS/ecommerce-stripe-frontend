@@ -15,6 +15,7 @@ import {
 import Footer from "../../components/Footer/Footer";
 import { getSetting } from "../../services/adminService";
 import { addToWishlist } from "../../services/wishlistService";
+import { getWishlist } from "../../services/wishlistService";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Home = () => {
     heroText: "Discover Amazing Products",
     heroSubText: "New Collection 2026",
   });
+  const [wishlist, setWishlist] = useState([]);
 
   const token = localStorage.getItem("token");
 
@@ -80,6 +82,12 @@ const Home = () => {
     fetchSettings();
   }, []);
 
+  useEffect(() => {
+    const wishlistProducts = getWishlist();
+
+    setWishlist(wishlistProducts.map((item) => item._id));
+  }, []);
+
   const handleAddToCart = (product) => {
     if (product.stock === 0) {
       showWarning("Product is out of stock");
@@ -92,10 +100,16 @@ const Home = () => {
   };
 
   const handleWishlist = (product) => {
-    addToWishlist(product)
+    if (wishlist.includes(product._id)) {
+      return;
+    }
 
-    showSuccess("Added to wishlist")
-  }
+    addToWishlist(product);
+
+    setWishlist((prev) => [...prev, product._id]);
+
+    showSuccess("Added to wishlist");
+  };
 
   const handleBuyNow = async (productId) => {
     try {
@@ -205,7 +219,10 @@ const Home = () => {
           {products.map((product) => (
             <ProductCard
               key={product._id}
-              product={product}
+              product={{
+                ...product,
+                isWishlisted: wishlist.includes(product._id),
+              }}
               onAddToCart={handleAddToCart}
               onBuyNow={handleBuyNow}
               onWishlist={handleWishlist}
