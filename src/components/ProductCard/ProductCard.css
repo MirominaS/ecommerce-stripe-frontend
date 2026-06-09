@@ -1,4 +1,5 @@
 .product-card {
+  position: relative;
   height: 360px;
   background: #fff;
   border-radius: 20px;
@@ -30,7 +31,7 @@
   transition: transform 0.4s ease;
 }
 
-.product-card:hover .product-image {
+.product-card:hover .product-card-image {
   transform: scale(1.05);
 }
 
@@ -105,6 +106,46 @@
 .add-cart-btn:hover {
   background: #111827;
   color: white;
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: #9ca3af;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  font-size: 18px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  transition: all 0.3s ease;
+}
+
+.wishlist-btn:hover {
+  color: #ef4444;
+  transform: scale(1.1);
+}
+
+.wishlist-btn svg {
+  pointer-events: none;
+}
+
+.wishlist-btn.active {
+  background: #fee2e2;
+  color: #ef4444;
 }
 
 .buy-now-btn {

@@ -1,16 +1,15 @@
 import "./ProductCard.css";
+import { FaHeart } from "react-icons/fa";
 
 const ProductCard = ({
   product,
   onAddToCart,
   onBuyNow,
   onView,
+  onWishlist,
 }) => {
   return (
-    <div
-      className="product-card"
-      onClick={() => onView(product._id)}
-    >
+    <div className="product-card" onClick={() => onView(product._id)}>
       <div className="product-card-image-wrapper">
         <img
           src={product.image}
@@ -20,34 +19,32 @@ const ProductCard = ({
       </div>
 
       <div className="product-card-content">
-        <p className="product-card-category">
-          {product.category}
-        </p>
+        <p className="product-card-category">{product.category}</p>
 
-        <h3 className="product-card-title">
-          {product.title}
-        </h3>
+        <h3 className="product-card-title">{product.title}</h3>
 
-        <div className="product-card-price">
-          ${product.price}
-        </div>
+        <div className="product-card-price">${product.price}</div>
 
         {/* Stock Information */}
         <div className="product-stock">
           {product.stock === 0 ? (
-            <span className="out-stock">
-              Out of Stock
-            </span>
+            <span className="out-stock">Out of Stock</span>
           ) : product.stock <= 5 ? (
-            <span className="low-stock">
-              Only {product.stock} left
-            </span>
+            <span className="low-stock">Only {product.stock} left</span>
           ) : (
-            <span className="in-stock">
-              In Stock ({product.stock})
-            </span>
+            <span className="in-stock">In Stock ({product.stock})</span>
           )}
         </div>
+
+        <button
+          className={`wishlist-btn ${product.isWishlisted ? "active" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onWishlist(product);
+          }}
+        >
+          <FaHeart />
+        </button>
 
         <div className="product-card-actions">
           <button
@@ -58,9 +55,7 @@ const ProductCard = ({
               onAddToCart(product);
             }}
           >
-            {product.stock === 0
-              ? "Out of Stock"
-              : "Add to Cart"}
+            {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
           </button>
 
           <button
@@ -71,9 +66,7 @@ const ProductCard = ({
               onBuyNow(product._id);
             }}
           >
-            {product.stock === 0
-              ? "Out of Stock"
-              : "Buy Now"}
+            {product.stock === 0 ? "Out of Stock" : "Buy Now"}
           </button>
         </div>
       </div>
