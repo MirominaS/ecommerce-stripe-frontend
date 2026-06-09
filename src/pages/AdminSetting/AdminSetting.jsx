@@ -55,18 +55,107 @@ const AdminSetting = () => {
     });
   };
 
-  const saveSetting = async (key, value) => {
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+  //branding
+  const saveBranding = async () => {
     try {
-      await updateSetting(token, { key, value });
-      showSuccess("Successfully Saved");
+      const config = {
+        LOGO_NAME: formData.logoName,
+      };
+      await updateSetting(token, { config });
+      showSuccess("Branding updated.");
     } catch (error) {
-      showError("Failed to save");
-      console.log(error);
+      showError("Failed Save branding.");
+    }
+  };
+  //hero setting
+  const saveHeroSetting = async () => {
+    try {
+      const config = {
+        HERO_TEXT: formData.heroText,
+        HERO_SUB_TEXT: formData.heroSubText,
+      };
+      await updateSetting(token, { config });
+      showSuccess("Hero setting updated.");
+    } catch (error) {
+      showError("Failed Save hero setting.");
+    }
+  };
+  //contact setting
+  const saveContactSetting = async () => {
+    try {
+      const config = {
+        PHONE: formData.phone,
+        EMAIL: formData.email,
+      };
+      await updateSetting(token, { config });
+      showSuccess("Contact details updated.");
+    } catch (error) {
+      showError("Failed Save contact details.");
     }
   };
 
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
+  //copyright setting
+  const saveCopyright = async () => {
+    try {
+      const config = {
+        COPYRIGHT_YEAR: formData.copyrightYear,
+        COPYRIGHT_TEXT: formData.copyrightText,
+      };
+      await updateSetting(token, { config });
+      showSuccess("Copyright details updated.");
+    } catch (error) {
+      showError("Failed Save copyright details.");
+    }
+  };
+
+  //social media
+  const saveSocialMedia = async () => {
+    try {
+      const config = {
+        FACEBOOK: formData.facebook,
+        INSTAGRAM: formData.instagram,
+        TWITTER: formData.twitter,
+        LINKEDIN: formData.linkedin,
+      };
+      await updateSetting(token, { config });
+      showSuccess("Social media details updated.");
+    } catch (error) {
+      showError("Failed Save social media details.");
+    }
+  };
+
+  //stripe setting
+  const saveStripeSettings = async () => {
+    try {
+      const config = {
+        VITE_STRIPE_PUBLISHABLE_KEY: formData.publishableKey,
+        STRIPE_SECRET_KEY: formData.stripeSecretKey,
+      };
+      await updateSetting(token, { config });
+      showSuccess("Stripe setting updated.");
+    } catch (error) {
+      showError("Failed save stripe setting.");
+    }
+  };
+
+  //email details setting
+  const saveEmailSetting = async () => {
+    try {
+      const config = {
+        EMAIL_PROVIDER: formData.emailProvider,
+        EMAIL_API_KEY: formData.emailApiKey,
+        EMAIL_API_URL: formData.emailApiUrl,
+        EMAIL_FROM: formData.emailFrom,
+      };
+
+      await updateSetting(token, { config });
+      showSuccess("Email setting updated.");
+    } catch (error) {
+      showError("Failed save email setting.");
+    }
   };
 
   if (loading || !formData) {
@@ -105,10 +194,7 @@ const AdminSetting = () => {
               value={formData.logoName}
               onChange={handleChange}
             />
-            <button
-              className="save-all-btn"
-              onClick={() => saveSetting("LOGO_NAME", formData.logoName)}
-            >
+            <button className="save-all-btn" onClick={saveBranding}>
               Save Changes
             </button>
           </div>
@@ -134,13 +220,7 @@ const AdminSetting = () => {
               value={formData.heroSubText}
               onChange={handleChange}
             />
-            <button
-              className="save-all-btn"
-              onClick={async () => {
-                await saveSetting("HERO_TEXT", formData.heroText);
-                await saveSetting("HERO_SUB_TEXT", formData.heroSubText);
-              }}
-            >
+            <button className="save-all-btn" onClick={saveHeroSetting}>
               Save Changes
             </button>
           </div>
@@ -167,13 +247,7 @@ const AdminSetting = () => {
               value={formData.phone}
               onChange={handleChange}
             />
-            <button
-              className="save-all-btn"
-              onClick={async () => {
-                await saveSetting("EMAIL", formData.email);
-                await saveSetting("PHONE", formData.phone);
-              }}
-            >
+            <button className="save-all-btn" onClick={saveContactSetting}>
               Save Changes
             </button>
           </div>
@@ -200,13 +274,7 @@ const AdminSetting = () => {
               value={formData.copyrightText}
               onChange={handleChange}
             />
-            <button
-              className="save-all-btn"
-              onClick={async () => {
-                await saveSetting("COPYRIGHT_YEAR", formData.copyrightYear);
-                await saveSetting("COPYRIGHT_TEXT", formData.copyrightText);
-              }}
-            >
+            <button className="save-all-btn" onClick={saveCopyright}>
               Save Changes
             </button>
           </div>
@@ -249,15 +317,7 @@ const AdminSetting = () => {
               value={formData.linkedin}
               onChange={handleChange}
             />
-            <button
-              className="save-all-btn"
-              onClick={async () => {
-                await saveSetting("FACEBOOK", formData.facebook);
-                await saveSetting("INSTAGRAM", formData.instagram);
-                await saveSetting("TWITTER", formData.twitter);
-                await saveSetting("LINKEDIN", formData.linkedin);
-              }}
-            >
+            <button className="save-all-btn" onClick={saveSocialMedia}>
               Save Changes
             </button>
           </div>
@@ -285,19 +345,7 @@ const AdminSetting = () => {
               onChange={handleChange}
             />
 
-            <button
-              className="save-all-btn"
-              onClick={async () => {
-                await saveSetting(
-                  "STRIPE_SECRET_KEY",
-                  formData.stripeSecretKey,
-                );
-                await saveSetting(
-                  "VITE_STRIPE_PUBLISHABLE_KEY",
-                  formData.publishableKey,
-                );
-              }}
-            >
+            <button className="save-all-btn" onClick={saveStripeSettings}>
               Save Changes
             </button>
           </div>
@@ -343,15 +391,7 @@ const AdminSetting = () => {
               onChange={handleChange}
             />
 
-            <button
-              className="save-all-btn"
-              onClick={async () => {
-                await saveSetting("EMAIL_PROVIDER", formData.emailProvider);
-                await saveSetting("EMAIL_API_KEY", formData.emailApiKey);
-                await saveSetting("EMAIL_API_URL", formData.emailApiUrl);
-                await saveSetting("EMAIL_FROM", formData.emailFrom);
-              }}
-            >
+            <button className="save-all-btn" onClick={saveEmailSetting}>
               Save Changes
             </button>
           </div>
