@@ -23,6 +23,7 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import AdminSetting from "./pages/AdminSetting/AdminSetting";
+import Wishlist from "./pages/Wishlist/Wishlist";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/checkout/:productId" element={<Checkout />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/wishlist" element={<Wishlist/>}/>
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
