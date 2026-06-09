@@ -4,29 +4,30 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaBox, FaUser } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { getSetting } from "../../services/adminService";
+import { FaHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [settings, setSettings] = useState({
-      logoName: "NYAshop",
-    });
+    logoName: "NYAshop",
+  });
 
-    useEffect(() => {
-      const fetchSettings = async () => {
-        try {
-          const data = await getSetting();
-  
-          setSettings({
-            logoName: data.LOGO_NAME || "NYAshop",
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      };
-  
-      fetchSettings();
-    }, []);
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const data = await getSetting();
+
+        setSettings({
+          logoName: data.LOGO_NAME || "NYAshop",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSettings();
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -50,6 +51,11 @@ const Navbar = () => {
         <button className="nav-icon-btn" onClick={() => navigate("/cart")}>
           <FaShoppingCart />
           <span>Cart</span>
+        </button>
+
+        <button className="nav-icon-btn" onClick={() => navigate("/wishlist")}>
+          <FaHeart />
+          <span>Wish List</span>
         </button>
 
         {token && (
