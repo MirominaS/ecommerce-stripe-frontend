@@ -12,7 +12,7 @@ import {
 } from "../../utils/toast";
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
-import { addToWishlist } from "../../services/wishlistService";
+import { addToWishlist, isInWishlist } from "../../services/wishlistService";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ const ProductDetails = () => {
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [wishlisted, setWishlisted] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -29,6 +30,7 @@ const ProductDetails = () => {
         console.log(data);
 
         setProduct(data.product);
+        setWishlisted(isInWishlist(data.product._id));
       } catch (error) {
         console.log(error);
       } finally {
@@ -56,7 +58,14 @@ const ProductDetails = () => {
   };
 
   const handleWishlist = () => {
+    if (wishlisted) {
+      showInfo("Already in wishlist");
+      return;
+    }
+
     addToWishlist(product);
+
+    setWishlisted(true);
 
     showSuccess("Added to wishlist");
   };
@@ -108,8 +117,11 @@ const ProductDetails = () => {
               >
                 {product.stock === 0 ? "Out of Stock" : "Add To Cart"}
               </button>
-              <button className="wishlist-btn" onClick={handleWishlist}>
-                Add To Wishlist
+              <button
+                className={`wishlisted-btn ${wishlisted ? "active" : ""}`}
+                onClick={handleWishlist}
+              >
+                {wishlisted ? "♥ Wishlisted" : "♡ Add To Wishlist"}
               </button>
               <button
                 className="view-cart-btn"

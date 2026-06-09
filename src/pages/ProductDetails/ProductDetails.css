@@ -102,7 +102,7 @@
 
 /* Button */
 
-.product-btn {
+.product-btn, .wishlisted-btn{
   width: 220px;
   padding: 14px 20px;
   border: none;
@@ -145,6 +145,11 @@
 
 .product-btn:hover {
   background: #2563eb;
+}
+
+.wishlist-btn.active {
+  background: #ff4d6d;
+  color: white;
 }
 
 /* Loading / Error */
