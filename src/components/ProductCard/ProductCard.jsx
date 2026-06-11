@@ -12,7 +12,7 @@ const ProductCard = ({
     <div className="product-card" onClick={() => onView(product._id)}>
       <div className="product-card-image-wrapper">
         <img
-          src={product.image}
+          src={product.imageUrl}
           alt={product.title}
           className="product-card-image"
         />

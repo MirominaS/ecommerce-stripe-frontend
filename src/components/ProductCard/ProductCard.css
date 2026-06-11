@@ -22,11 +22,11 @@
   overflow: hidden;
 }
 
-.product-card-image {
+.product-card-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 20px;
+  padding: 5px;
 
   transition: transform 0.4s ease;
 }
@@ -52,7 +52,7 @@
   font-weight: 600;
   color: #111827;
   margin-bottom: 10px;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .product-card-price {
@@ -112,25 +112,18 @@
   position: absolute;
   top: 15px;
   right: 15px;
-
   width: 42px;
   height: 42px;
-
   border: none;
   border-radius: 50%;
-
   background: rgba(255, 255, 255, 0.95);
   color: #9ca3af;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   font-size: 18px;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-
   transition: all 0.3s ease;
 }
 
