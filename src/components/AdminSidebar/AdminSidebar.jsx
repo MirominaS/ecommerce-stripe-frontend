@@ -11,6 +11,7 @@ const AdminSidebar = () => {
   const menuItems = [
     { name: "Dashboard", path: "/admin/dashboard" },
     { name: "Products", path: "/admin/products" },
+    { name: "Media", path: "/admin/media" },
     { name: "Orders", path: "/admin/orders" },
     { name: "Payments", path: "/admin/payments" },
     { name: "Analytics", path: "/admin/analytics" },

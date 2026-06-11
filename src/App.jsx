@@ -24,6 +24,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import AdminSetting from "./pages/AdminSetting/AdminSetting";
 import Wishlist from "./pages/Wishlist/Wishlist";
+import AdminMedia from "./pages/AdminMedia/AdminMedia";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="payments" element={<Payments/>}/>
           <Route path="users" element={<AdminUsers/>}/>
           <Route path="setting" element={<AdminSetting/>}/>
+          <Route path="media" element={<AdminMedia/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
