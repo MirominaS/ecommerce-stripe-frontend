@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import "./AdminMedia.css";
 import { FaFolderPlus } from "react-icons/fa";
 import {
@@ -25,6 +25,7 @@ const AdminMedia = () => {
   const [folderName, setFolderName] = useState("");
   const [mediaUrls, setMediaUrls] = useState({});
   const [visibility, setVisibility] = useState("private");
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const [alertModal, setAlertModal] = useState({
     isOpen: false,
     title: "",
@@ -33,6 +34,8 @@ const AdminMedia = () => {
     showCancel: false,
     onConfirm: null,
   });
+
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     fetchFolders();
@@ -297,27 +300,22 @@ const AdminMedia = () => {
             </button>
 
             <h3>{selectedFolder.name}</h3>
-            <select
-              value={visibility}
-              onChange={(e) => setVisibility(e.target.value)}
-              className="visibility-select"
+
+            <button
+              className="admin-upload-btn"
+              onClick={() => setShowUploadModal(true)}
             >
-              <option value="public">Public</option>
-              <option value="private">Private</option>
-              <option value="internal">Internal</option>
-            </select>
+              Upload Image
+            </button>
 
-            <label className="upload-btn">
-              {uploading ? "Uploading..." : "Upload Image"}
-
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                disabled={uploading}
-                onChange={handleUpload}
-              />
-            </label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              hidden
+              accept="image/*"
+              disabled={uploading}
+              onChange={handleUpload}
+            />
           </div>
 
           <div className="media-toolbar">
@@ -400,6 +398,42 @@ const AdminMedia = () => {
 
               <button className="save-btn" onClick={handleCreateFolder}>
                 Create
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showUploadModal && (
+        <div className="modal-overlay">
+          <div className="folder-modal">
+            <h3>Select Image Visibility</h3>
+
+            <select
+              value={visibility}
+              onChange={(e) => setVisibility(e.target.value)}
+            >
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+              <option value="internal">Internal</option>
+            </select>
+
+            <div className="modal-actions">
+              <button
+                className="cancel-btn"
+                onClick={() => setShowUploadModal(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="save-btn"
+                onClick={() => {
+                  setShowUploadModal(false);
+                  fileInputRef.current?.click();
+                }}
+              >
+                Continue
               </button>
             </div>
           </div>

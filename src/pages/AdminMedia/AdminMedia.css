@@ -128,19 +128,20 @@
   opacity: 0.9;
 }
 
-.upload-btn,
+.admin-upload-btn,
 .visibility-select {
   background: #111827;
   color: white;
-  padding: 10px 16px;
+  padding: 12px 16px;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s ease;
+  border: none;
 }
 
-.upload-btn:hover {
-  opacity: 0.9;
+.admin-upload-btn:hover {
+  background: #2563eb;
 }
 
 /* Search */
@@ -309,6 +310,15 @@
   background: white;
   border-radius: 12px;
   padding: 24px;
+}
+
+.folder-modal select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .folder-modal h3 {
