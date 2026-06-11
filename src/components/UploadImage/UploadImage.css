@@ -1,0 +1,169 @@
+.upload-modal {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10000;
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.upload-modal-content {
+  width: 450px;
+  max-width: 92%;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+
+  position: relative;
+
+  animation: uploadPopupIn 0.25s ease;
+}
+
+.upload-modal-content h3 {
+  margin: 0;
+  text-align: center;
+
+  font-size: 24px;
+  color: #111827;
+}
+
+.upload-close-btn {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  cursor: pointer;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #374151;
+
+  transition: all 0.25s ease;
+}
+
+.upload-close-btn:hover {
+  background: #e5e7eb;
+  transform: rotate(90deg);
+}
+
+.upload-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upload-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.upload-group select,
+.upload-group input[type="file"] {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+
+  background: white;
+
+  font-size: 14px;
+
+  outline: none;
+}
+
+.upload-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.upload-actions {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 8px;
+}
+
+.upload-btn {
+  flex: 1;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 14px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.upload-btn:hover {
+  background: #1d4ed8;
+}
+
+.cancel-btn {
+  flex: 1;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 14px;
+
+  background: #f3f4f6;
+  color: #111827;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.cancel-btn:hover {
+  background: #e5e7eb;
+}
+
+@keyframes uploadPopupIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
