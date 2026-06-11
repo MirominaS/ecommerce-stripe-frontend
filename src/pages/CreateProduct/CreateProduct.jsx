@@ -4,6 +4,8 @@ import { useAuth } from "../../context/AuthContex";
 import { createProduct } from "../../services/adminService";
 import "./CreateProduct.css";
 import { showError, showSuccess } from "../../utils/toast";
+import MediaPicker from "../../components/MediaPicker/MediaPicker";
+import UploadImage from "../../components/UploadImage/UploadImage";
 
 const CreateProduct = () => {
   const { token } = useAuth();
@@ -19,6 +21,10 @@ const CreateProduct = () => {
     category: "",
     stock: "",
   });
+  const [showImagePopup, setShowImagePopup] = useState(false);
+  const [showUploadPopup, setShowUploadPopup] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showMediaPicker, setShowMediaPicker] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -111,23 +117,23 @@ const CreateProduct = () => {
             </div>
           </div>
 
-          <div className="form-group">
-            <label>Image URL</label>
+          <div className="form-group product-image-section">
+            <label>Product Image</label>
 
-            <input
-              type="text"
-              name="image"
-              placeholder="Enter image URL"
-              onChange={handleChange}
-            />
+            <button
+              type="button"
+              className="image-select-btn"
+              onClick={() => setShowImagePopup(true)}
+            >
+              Choose Image
+            </button>
           </div>
 
-          {formData.image && (
+          {selectedImage?.previewUrl && (
             <div className="image-preview">
-              <img src={formData.image} alt="Preview" />
+              <img src={selectedImage.previewUrl} alt="Selected Product" />
             </div>
           )}
-
           <div className="form-group">
             <label>Category</label>
 
@@ -144,6 +150,68 @@ const CreateProduct = () => {
           </button>
         </form>
       </div>
+
+      {showImagePopup && (
+        <div className="image-modal">
+          <div className="modal-content">
+            <button
+              type="button"
+              className="modal-close"
+              onClick={() => setShowImagePopup(false)}
+            >
+              ✕
+            </button>
+
+            <h3>Select Image</h3>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowImagePopup(false);
+                setShowUploadPopup(true);
+              }}
+            >
+              Upload New Image
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowImagePopup(false);
+                setShowMediaPicker(true);
+              }}
+            >
+              Select From Media Library
+            </button>
+          </div>
+        </div>
+      )}
+
+      <MediaPicker
+        isOpen={showMediaPicker}
+        onClose={() => setShowMediaPicker(false)}
+        onSelect={(image) => {
+          setSelectedImage(image);
+
+          setFormData((prev) => ({
+            ...prev,
+            image: image._id,
+          }));
+        }}
+      />
+
+      <UploadImage
+        isOpen={showUploadPopup}
+        onClose={() => setShowUploadPopup(false)}
+        onUploadSuccess={(image) => {
+          setSelectedImage(image);
+
+          setFormData((prev) => ({
+            ...prev,
+            image: image._id,
+          }));
+        }}
+      />
     </div>
   );
 };
