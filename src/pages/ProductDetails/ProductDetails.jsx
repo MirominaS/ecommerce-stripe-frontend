@@ -87,7 +87,7 @@ const ProductDetails = () => {
             <div className="product-image-wrapper">
               <img
                 className="product-image"
-                src={product.image}
+                src={product.imageUrl}
                 alt={product.title}
               />
             </div>
