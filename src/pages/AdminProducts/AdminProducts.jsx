@@ -12,6 +12,7 @@ import Papa from "papaparse";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { FaAngleDoubleLeft } from "react-icons/fa";
+import { getMediaAccessUrl } from "../../services/mediaService";
 
 const AdminProducts = () => {
   const { token } = useAuth();
@@ -33,7 +34,28 @@ const AdminProducts = () => {
     try {
       const data = await getAdminProducts(token, page);
 
-      setProducts(data.products);
+      const productsWithUrls = await Promise.all(
+        data.products.map(async (product) => {
+          try {
+            if (!product.image?._id) {
+              return product;
+            }
+
+            const urlData = await getMediaAccessUrl(product.image._id, token);
+
+            return {
+              ...product,
+              imageUrl: urlData.url,
+            };
+          } catch (error) {
+            console.log(error);
+            return product;
+          }
+        }),
+      );
+
+      setProducts(productsWithUrls);
+
       setTotalPages(data.pagination.totalPages);
     } catch (error) {
       console.log(error);
@@ -171,7 +193,7 @@ const AdminProducts = () => {
               <tr key={product._id}>
                 <td>
                   <img
-                    src={product.image}
+                    src={product.imageUrl}
                     alt={product.title}
                     className="product-image"
                   />
@@ -214,21 +236,21 @@ const AdminProducts = () => {
         </table>
 
         <div className="admin-users-pagination">
-                <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-                  <FaAngleDoubleLeft />
-                </button>
-        
-                <span>
-                  Page {page} of {totalPages}
-                </span>
-        
-                <button
-                  disabled={page === totalPages}
-                  onClick={() => setPage((p) => p + 1)}
-                >
-                  <FaAngleDoubleRight />
-                </button>
-              </div>
+          <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
+            <FaAngleDoubleLeft />
+          </button>
+
+          <span>
+            Page {page} of {totalPages}
+          </span>
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            <FaAngleDoubleRight />
+          </button>
+        </div>
       </div>
       {isImporting && (
         <div className="import-overlay">
