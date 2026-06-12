@@ -50,6 +50,7 @@ const Home = () => {
         );
 
         setProducts(data.products);
+        
         if (!category) {
           setCategories([
             ...new Set(data.products.map((product) => product.category)),
