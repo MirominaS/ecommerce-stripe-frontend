@@ -150,7 +150,7 @@
 
 /* REMOVE */
 
-.remove-btn {
+.cart-remove-btn {
   width: 34px;
   height: 34px;
   border: none;
@@ -162,7 +162,7 @@
   transition: 0.3s;
 }
 
-.remove-btn:hover {
+.cart-remove-btn:hover {
   background: #fecaca;
 }
 

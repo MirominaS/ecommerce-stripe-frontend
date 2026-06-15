@@ -23,19 +23,26 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-  const handleQuantityChange = (productId, quantity) => {
-    if (quantity < 1) return;
+ const handleQuantityChange = (
+  productId,
+  variantId,
+  quantity
+) => {
+  updateCartItem(
+    productId,
+    variantId,
+    quantity
+  );
+  fetchCart();
+};
 
-    updateCartItem(productId, quantity);
-
-    fetchCart();
-  };
-
-  const handleRemoveItem = (productId) => {
-    removeCartItem(productId);
-
-    fetchCart();
-  };
+const handleRemoveItem = (
+  productId,
+  variantId
+) => {
+  removeCartItem(productId, variantId);
+  fetchCart();
+};
 
   const subtotal =
     cart?.items?.reduce(
@@ -105,12 +112,13 @@ const Cart = () => {
                       <div>
                         <h2 className="cart-product-title">{item.title}</h2>
 
-                        <p className="cart-price">${item.price}</p>
+                        <p className="cart-price">€{item.price}</p>
                       </div>
 
                       <button
-                        className="remove-btn"
-                        onClick={() => handleRemoveItem(item._id)}
+                        className="cart-remove-btn"
+                        onClick={() => handleRemoveItem(  item._id,
+    item.variantId)}
                       >
                         ✕
                       </button>
@@ -121,7 +129,9 @@ const Cart = () => {
                         <button
                           className="quantity-btn"
                           onClick={() =>
-                            handleQuantityChange(item._id, item.quantity - 1)
+                            handleQuantityChange( item._id,
+    item.variantId,
+    item.quantity - 1)
                           }
                         >
                           -
@@ -132,7 +142,9 @@ const Cart = () => {
                         <button
                           className="quantity-btn"
                           onClick={() =>
-                            handleQuantityChange(item._id, item.quantity + 1)
+                            handleQuantityChange( item._id,
+    item.variantId,
+    item.quantity + 1)
                           }
                         >
                           +
@@ -140,7 +152,7 @@ const Cart = () => {
                       </div>
 
                       <p className="item-total">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        €{(item.price * item.quantity).toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -162,7 +174,7 @@ const Cart = () => {
               <div className="summary-row">
                 <span>Subtotal</span>
 
-                <span>${subtotal.toFixed(2)}</span>
+                <span>€{subtotal.toFixed(2)}</span>
               </div>
 
               <div className="summary-row">
@@ -174,7 +186,7 @@ const Cart = () => {
               <div className="summary-total">
                 <span>Total</span>
 
-                <span>${subtotal.toFixed(2)}</span>
+                <span>€{subtotal.toFixed(2)}</span>
               </div>
 
               <button className="summary-checkout-btn" onClick={handleCheckout}>
