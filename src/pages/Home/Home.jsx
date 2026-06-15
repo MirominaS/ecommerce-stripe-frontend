@@ -89,16 +89,25 @@ const Home = () => {
     setWishlist(wishlistProducts.map((item) => item._id));
   }, []);
 
-  const handleAddToCart = (product) => {
-    if (product.stock === 0) {
-      showWarning("Product is out of stock");
-      return;
-    }
+ const handleAddToCart = (product) => {
+  if (product.stock === 0) {
+    showWarning("Product is out of stock");
+    return;
+  }
 
-    addToCart(product);
-
-    showInfo("Product added to cart");
+  const cartItem = {
+    _id: product._id,
+    title: product.title,
+    image: product.imageUrl,
+    price: product.hasVariants
+      ? product.variants?.[0]?.sellingPrice || 0
+      : product.sellingPrice,
   };
+
+  addToCart(cartItem);
+
+  showInfo("Product added to cart");
+};
 
   const handleWishlist = (product) => {
     if (wishlist.includes(product._id)) {
