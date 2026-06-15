@@ -19,7 +19,7 @@ const CreateProduct = () => {
     sellingPrice: "",
     image: "",
     category: "",
-    stock: "",
+    minimumStockLevel: "",
   });
   const [showImagePopup, setShowImagePopup] = useState(false);
   const [showUploadPopup, setShowUploadPopup] = useState(false);
@@ -57,7 +57,7 @@ const CreateProduct = () => {
       showSuccess("Product created");
 
       if (hasVariants) {
-        navigate(`/admin/products/${response.product._id}/variants`);
+        navigate(`/admin/products/${response.product._id}/add-variants`);
       } else {
         navigate("/admin/products");
       }
@@ -96,6 +96,17 @@ const CreateProduct = () => {
               placeholder="Enter product description"
               onChange={handleChange}
               rows="5"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Minimum Stock level</label>
+
+            <input
+              name="minimumStockLevel"
+              placeholder="Enter minimum stock level"
+              onChange={handleChange}
+              min={0}
             />
           </div>
 
