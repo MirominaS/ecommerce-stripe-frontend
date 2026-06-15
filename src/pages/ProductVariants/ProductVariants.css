@@ -1,0 +1,171 @@
+.product-variants-page {
+  padding: 30px;
+}
+
+.product-variants-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.product-variants-header h1 {
+  font-size: 28px;
+  color: #111827;
+  font-weight: 700;
+}
+
+.add-variant-btn {
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.add-variant-btn:hover {
+  background: #1d4ed8;
+}
+
+.variants-table-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.variants-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.variants-table thead {
+  background: #f9fafb;
+}
+
+.variants-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.variants-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #111827;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.variants-table tbody tr {
+  transition: 0.2s;
+}
+
+.variants-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.variant-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.variant-attribute {
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 3px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.variant-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.variant-edit-btn,
+.variant-delete-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.variant-edit-btn {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.variant-edit-btn:hover {
+  background: #2563eb;
+  color: white;
+}
+
+.variant-delete-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.variant-delete-btn:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.back-products-link {
+  display: inline-block;
+  margin-top: 25px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-products-link:hover {
+  text-decoration: underline;
+}
+
+.loading-text {
+  padding: 30px;
+  font-size: 20px;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .product-variants-page {
+    padding: 15px;
+  }
+
+  .product-variants-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .variants-table th,
+  .variants-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .variant-image {
+    width: 50px;
+    height: 50px;
+  }
+}
