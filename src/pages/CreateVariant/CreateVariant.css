@@ -124,7 +124,7 @@
 .attribute-inputs button {
   padding: 12px 18px;
   border: none;
-  background: #2563eb;
+  background: #111827;
   color: white;
   border-radius: 10px;
   cursor: pointer;
@@ -212,35 +212,56 @@
   color: #111827;
 }
 
-.variant-item {
-  padding: 18px;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
+.variant-list-wrapper {
   background: white;
-  margin-bottom: 14px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
 }
 
-.variant-item strong {
-  color: #111827;
+.variant-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.variant-table thead {
+  background: #f8fafc;
+}
+
+.variant-table th {
+  text-align: left;
+  padding: 16px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.variant-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.variant-table tbody tr:hover {
+  background: #f9fafb;
 }
 
 .variant-attributes {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
-.variant-attributes div {
-  background: #f3f4f6;
+.variant-attribute-badge {
+  background: #dbeafe;
+  color: #1e40af;
   padding: 6px 12px;
   border-radius: 999px;
   font-size: 13px;
+  font-weight: 500;
 }
+ 
 
 /* Finish Button */
 
@@ -285,5 +306,13 @@
   .product-header-image img {
     width: 100px;
     height: 100px;
+  }
+
+    .variant-list-wrapper {
+    overflow-x: auto;
+  }
+
+  .variant-table {
+    min-width: 500px;
   }
 }

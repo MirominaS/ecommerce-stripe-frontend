@@ -8,6 +8,7 @@ import { useAuth } from "../../context/AuthContex";
 import { showSuccess, showError } from "../../utils/toast";
 import { getProductById } from "../../services/productService";
 import MediaPicker from "../../components/MediaPicker/MediaPicker";
+import UploadImage from "../../components/UploadImage/UploadImage";
 
 import "./CreateVariant.css";
 
@@ -19,17 +20,14 @@ const CreateVariant = () => {
   const navigate = useNavigate();
 
   const [variants, setVariants] = useState([]);
-
   const [showMediaPicker, setShowMediaPicker] = useState(false);
-
   const [selectedImage, setSelectedImage] = useState(null);
   const [attributeName, setAttributeName] = useState("");
-
   const [attributeValue, setAttributeValue] = useState("");
-
   const [attributes, setAttributes] = useState({});
   const [product, setProduct] = useState(null);
-
+  const [showUploadPopup, setShowUploadPopup] = useState(false);
+  const [showImagePopup, setShowImagePopup] = useState(false);
   const [formData, setFormData] = useState({
     sku: "",
     sellingPrice: "",
@@ -73,6 +71,7 @@ const CreateVariant = () => {
     e.preventDefault();
 
     try {
+      console.log("Sending attributes:", attributes);
       await createVariant(
         productId,
         {
@@ -121,7 +120,9 @@ const CreateVariant = () => {
     setAttributeValue("");
   };
 
-  console.log("variants state", variants);
+  variants.forEach((v) => {
+    console.log(v.sku, v.attributes);
+  });
 
   return (
     <div className="create-variant-page">
@@ -199,7 +200,7 @@ const CreateVariant = () => {
             <button
               type="button"
               className="select-image-btn"
-              onClick={() => setShowMediaPicker(true)}
+              onClick={() => setShowImagePopup(true)}
             >
               Select Image
             </button>
@@ -219,34 +220,84 @@ const CreateVariant = () => {
         <div className="variant-list">
           <h2>Existing Variants ({variants.length})</h2>
 
-          {variants.map((variant) => (
-            <div key={variant._id} className="variant-item">
-              <div>
-                <strong>{variant.sku}</strong>
-              </div>
+          <div className="variant-list-wrapper">
+            <table className="variant-table">
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Price</th>
+                  <th>Attributes</th>
+                </tr>
+              </thead>
 
-              <div>Rs. {variant.sellingPrice}</div>
+              <tbody>
+                {variants.map((variant) => (
+                  <tr key={variant._id}>
+                    <td>{variant.sku}</td>
 
-              <div className="variant-attributes">
-                {Object.entries(variant.attributes || {}).map(
-                  ([key, value]) => (
-                    <div key={key}>
-                      <strong>{key}</strong>: {value}
-                    </div>
-                  ),
-                )}
-              </div>
-            </div>
-          ))}
+                    <td>€ {variant.sellingPrice}</td>
+
+                    <td>
+                      <div className="variant-attributes">
+                        {Object.entries(variant.attributes || {}).map(
+                          ([key, value]) => (
+                            <span key={key} className="variant-attribute-badge">
+                              {key}: {value}
+                            </span>
+                          ),
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <button
           className="finish-btn"
-          onClick={() => navigate("/admin/products")}
+          onClick={() => navigate(`/admin/products/${productId}/variants`)}
         >
           Finish
         </button>
       </div>
+
+      {showImagePopup && (
+        <div className="image-modal">
+          <div className="modal-content">
+            <button
+              type="button"
+              className="modal-close"
+              onClick={() => setShowImagePopup(false)}
+            >
+              ✕
+            </button>
+
+            <h3>Select Image</h3>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowImagePopup(false);
+                setShowUploadPopup(true);
+              }}
+            >
+              Upload New Image
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowImagePopup(false);
+                setShowMediaPicker(true);
+              }}
+            >
+              Select From Media Library
+            </button>
+          </div>
+        </div>
+      )}
 
       <MediaPicker
         isOpen={showMediaPicker}
@@ -260,6 +311,21 @@ const CreateVariant = () => {
           }));
 
           setShowMediaPicker(false);
+        }}
+      />
+
+      <UploadImage
+        isOpen={showUploadPopup}
+        onClose={() => setShowUploadPopup(false)}
+        onUploadSuccess={(image) => {
+          setSelectedImage(image);
+
+          setFormData((prev) => ({
+            ...prev,
+            image: image._id,
+          }));
+
+          setShowUploadPopup(false);
         }}
       />
     </div>
