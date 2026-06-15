@@ -48,20 +48,29 @@ const ProductDetails = () => {
     console.log("Selected Variant Changed:", selectedVariant);
   }, [selectedVariant]);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = () => {
     try {
-      if (selectedVariant?.stock === 0) {
+      if (currentStock === 0) {
         showWarning("Product is out of stock");
         return;
       }
 
-      addToCart({
-        ...product,
-        variantId: selectedVariant._id,
-        sku: selectedVariant.sku,
-        sellingPrice: selectedVariant.sellingPrice,
-        stock: selectedVariant.stock,
-      });
+      const cartItem = {
+        _id: product._id,
+        variantId: selectedVariant?._id || null,
+        title: product.title,
+        sku: selectedVariant?.sku || product.sku,
+
+        price: product.hasVariants
+          ? selectedVariant.sellingPrice
+          : product.sellingPrice,
+
+        image: selectedVariant?.imageUrls?.[0] || product.imageUrl,
+
+        quantity: 1,
+      };
+
+      addToCart(cartItem);
 
       showInfo("Product added to cart");
     } catch (error) {
@@ -91,6 +100,9 @@ const ProductDetails = () => {
     return <h1 className="not-found-text">Product not found</h1>;
   }
 
+  const hasAvailableVariants =
+    product.hasVariants && product.variants?.length > 0;
+
   const currentStock = product.hasVariants
     ? selectedVariant?.stock || 0
     : product.inventory?.stock || 0;
@@ -118,7 +130,7 @@ const ProductDetails = () => {
             <h1 className="product-title">{product.title}</h1>
 
             <p className="product-description">{product.description}</p>
-            {product.hasVariants && (
+            {hasAvailableVariants && (
               <div className="variant-section">
                 <h3 className="variant-title">Select Variant</h3>
 
@@ -139,7 +151,10 @@ const ProductDetails = () => {
             )}
 
             <h2 className="product-price">
-              Rs. {selectedVariant?.sellingPrice || 0}
+              €.{" "}
+              {product.hasVariants
+                ? selectedVariant?.sellingPrice || 0
+                : product.sellingPrice}
             </h2>
 
             <div className="product-stock">
