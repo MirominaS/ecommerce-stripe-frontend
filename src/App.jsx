@@ -27,6 +27,9 @@ import Wishlist from "./pages/Wishlist/Wishlist";
 import AdminMedia from "./pages/AdminMedia/AdminMedia";
 import CreateVariant from "./pages/CreateVariant/CreateVariant";
 import CreatePurchase from "./pages/CreatePurchase/CreatePurchase";
+import ProductVariants from "./pages/ProductVariants/ProductVariants";
+import EditProductVariant from "./pages/EditProductVariant/EditProductVariant";
+import AdminPurchase from "./pages/AdminPurchase/AdminPurchase";
 
 function App() {
   return (
@@ -63,10 +66,19 @@ function App() {
             <Route path="setting" element={<AdminSetting />} />
             <Route path="media" element={<AdminMedia />} />
             <Route
-              path="products/:productId/variants"
+              path="products/:productId/add-variants"
               element={<CreateVariant />}
             />
-            <Route path="purchase" element={<CreatePurchase/>}/>
+            <Route
+              path="products/:productId/variants"
+              element={<ProductVariants />}
+            />
+            <Route
+              path="products/:productId/variants/:variantId/edit"
+              element={<EditProductVariant />}
+            />
+            <Route path="purchase" element={<AdminPurchase />} />
+            <Route path="add-purchase" element={<CreatePurchase />} />
           </Route>
         </Routes>
       </BrowserRouter>
