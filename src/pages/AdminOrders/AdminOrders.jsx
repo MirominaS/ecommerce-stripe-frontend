@@ -242,7 +242,7 @@ const AdminOrders = () => {
               <tr key={order._id}>
                 <td className="customer-name">{order.user?.name}</td>
                 <td className="customer-email">{order.user?.email}</td>
-                <td className="order-total">${order.totalPrice}</td>
+                <td className="order-total">€{order.totalPrice}</td>
 
                 <td>
                   <select

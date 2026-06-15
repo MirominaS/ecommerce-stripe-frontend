@@ -29,7 +29,7 @@ const ProductCard = ({
         <h3 className="product-card-title">{product.title}</h3>
 
         <div className="product-card-price">
-          $
+          €
           {product.hasVariants
             ? displayVariant?.sellingPrice
             : product.sellingPrice}
