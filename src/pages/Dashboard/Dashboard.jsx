@@ -49,7 +49,7 @@ const Dashboard = () => {
         <div className="dashboard-card">
           <h2>Total Revenue</h2>
 
-          <p>${summary.totalRevenue}</p>
+          <p>€{summary.totalRevenue}</p>
         </div>
 
         <div className="dashboard-card">
