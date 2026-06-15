@@ -6,7 +6,7 @@ import { showError, showSuccess } from "../../utils/toast";
 import { getMediaAccessUrl } from "../../services/mediaService";
 import "./UploadImage.css";
 
-const UploadImageModal = ({ isOpen, onClose, onUploadSuccess }) => {
+const UploadImage = ({ isOpen, onClose, onUploadSuccess }) => {
   const { token } = useAuth();
 
   const [file, setFile] = useState(null);
@@ -47,7 +47,7 @@ const UploadImageModal = ({ isOpen, onClose, onUploadSuccess }) => {
       formData.append("visibility", visibility);
 
       const result = await uploadMedia(formData, token);
-
+      console.log("CLICKED")
       showSuccess("Uploaded");
 
       const urlData = await getMediaAccessUrl(result.image._id, token);
@@ -125,4 +125,4 @@ const UploadImageModal = ({ isOpen, onClose, onUploadSuccess }) => {
   );
 };
 
-export default UploadImageModal;
+export default UploadImage;
