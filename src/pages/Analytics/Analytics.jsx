@@ -69,7 +69,7 @@ const Analytics = () => {
             <strong>{product.title}</strong>
           </p>
 
-          <p>Revenue: ${product.revenue.toLocaleString()}</p>
+          <p>Revenue: €{product.revenue.toLocaleString()}</p>
 
           <p>Units Sold: {product.totalSold}</p>
         </div>
