@@ -8,7 +8,7 @@ export const getProducts = async (
   category = "",
   sort = "",
   maxPrice = "",
-  minPrice = ""
+  minPrice = "",
 ) => {
   const response = await axios.get(`${API_URL}/products`, {
     params: {
@@ -30,7 +30,6 @@ export const getProductById = async (id) => {
   return response.data;
 };
 
-
 export const importProducts = async (products, token) => {
   const response = await axios.post(
     `${API_URL}/products/import`,
@@ -41,7 +40,13 @@ export const importProducts = async (products, token) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
-  )
+    },
+  );
   return response.data;
-}
+};
+
+export const getLowStockProducts = async () => {
+  const response = await axios.get(`${API_URL}/products/low-stock`);
+
+  return response.data;
+};
