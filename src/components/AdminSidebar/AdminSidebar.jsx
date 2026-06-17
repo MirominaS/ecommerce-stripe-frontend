@@ -18,6 +18,7 @@ const AdminSidebar = () => {
     { name: "Analytics", path: "/admin/analytics" },
     { name: "Users", path: "/admin/users" },
     { name: "Setting", path: "/admin/setting" },
+    { name: "Stock Alert", path: "/admin/stock-alert" },
   ];
 
   const handleLogout = () => {
