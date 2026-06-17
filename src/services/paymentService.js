@@ -15,10 +15,10 @@ export const createCheckout = async (items, token) => {
   return response.data;
 };
 
-export const paymentSuccess = async (sessionId, items, token) => {
+export const paymentSuccess = async (sessionId, token) => {
   const response = await axios.post(
     `${API_URL}/payments/payment-success`,
-    { sessionId, items },
+    { sessionId },
     {
       headers: {
         Authorization: `Bearer ${token}`,

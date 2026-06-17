@@ -1,0 +1,90 @@
+.create-purchase {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.create-purchase h1 {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #222;
+  font-size: 1.8rem;
+}
+
+.create-purchase form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.create-purchase form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.create-purchase label {
+  font-weight: 600;
+  color: #444;
+}
+
+.create-purchase input,
+.create-purchase select,
+.create-purchase textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+
+.create-purchase input:focus,
+.create-purchase select:focus,
+.create-purchase textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.create-purchase textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.create-purchase button {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.create-purchase button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.create-purchase button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .create-purchase {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .create-purchase h1 {
+    font-size: 1.5rem;
+  }
+}

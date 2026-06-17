@@ -1,23 +1,20 @@
-import React from 'react'
-import './OrderDetailsModal.css'
+import React from "react";
+import "./OrderDetailsModal.css";
 
-const OrderDetailsModal = ({order,onClose}) => {
+const OrderDetailsModal = ({ order, onClose }) => {
   return (
-     <div className="order-modal-overlay">
+    <div className="order-modal-overlay">
       <div className="order-modal">
         <div className="receipt">
-
           <h2>ORDER DETAILS</h2>
 
           <div className="receipt-info">
             <p>
-              <strong>Customer:</strong>{" "}
-              {order.user?.name}
+              <strong>Customer:</strong> {order.user?.name}
             </p>
 
             <p>
-              <strong>Email:</strong>{" "}
-              {order.user?.email}
+              <strong>Email:</strong> {order.user?.email}
             </p>
 
             <p>
@@ -26,13 +23,11 @@ const OrderDetailsModal = ({order,onClose}) => {
             </p>
 
             <p>
-              <strong>Status:</strong>{" "}
-              {order.orderStatus}
+              <strong>Status:</strong> {order.orderStatus}
             </p>
 
             <p>
-              <strong>Payment:</strong>{" "}
-              {order.payment?.paymentStatus}
+              <strong>Payment:</strong> {order.payment?.paymentStatus}
             </p>
           </div>
 
@@ -41,18 +36,30 @@ const OrderDetailsModal = ({order,onClose}) => {
           <h3>Items</h3>
 
           <div className="receipt-items">
-            {order.orderItems?.map((item) => (
-              <div
-                key={item.product}
-                className="receipt-item"
-              >
-                <span>{item.title}</span>
+            {order.orderItems?.map((item, index) => (
+              <div key={`${item.product}-${index}`} className="receipt-item">
+                <div>
+                  <span>{item.title}</span>
+
+                  {item.variantAttributes &&
+                    Object.keys(item.variantAttributes).length > 0 && (
+                      <div className="variant-details">
+                        {Object.entries(item.variantAttributes).map(
+                          ([key, value]) => (
+                            <div key={key}>
+                              <small>
+                                {key}: {value}
+                              </small>
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    )}
+                </div>
 
                 <span>x{item.quantity}</span>
 
-                <span>
-                  ${(item.price * item.quantity).toFixed(2)}
-                </span>
+                <span>€{(item.price * item.quantity).toFixed(2)}</span>
               </div>
             ))}
           </div>
@@ -62,21 +69,16 @@ const OrderDetailsModal = ({order,onClose}) => {
           <div className="receipt-total">
             <strong>Total:</strong>
 
-            <strong>
-              ${order.totalPrice.toFixed(2)}
-            </strong>
+            <strong>€{order.totalPrice.toFixed(2)}</strong>
           </div>
 
-          <button
-            className="close-modal-btn"
-            onClick={onClose}
-          >
+          <button className="close-modal-btn" onClick={onClose}>
             Close
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default OrderDetailsModal
+export default OrderDetailsModal;

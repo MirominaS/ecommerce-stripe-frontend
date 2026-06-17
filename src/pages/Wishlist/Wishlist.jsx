@@ -54,7 +54,7 @@ const Wishlist = () => {
 
                   <h3 className="wishlist-product-title">{product.title}</h3>
 
-                  <div className="wishlist-price">${product.price}</div>
+                  <div className="wishlist-price">€{product.price}</div>
 
                   <div className="wishlist-actions">
                     <button

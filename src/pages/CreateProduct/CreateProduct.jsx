@@ -16,15 +16,16 @@ const CreateProduct = () => {
     sku: "",
     title: "",
     description: "",
-    price: "",
+    sellingPrice: "",
     image: "",
     category: "",
-    stock: "",
+    minimumStockLevel: "",
   });
   const [showImagePopup, setShowImagePopup] = useState(false);
   const [showUploadPopup, setShowUploadPopup] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showMediaPicker, setShowMediaPicker] = useState(false);
+  const [hasVariants, setHasVariants] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -37,15 +38,32 @@ const CreateProduct = () => {
     e.preventDefault();
 
     try {
-      await createProduct(formData, token);
+      let payload = {
+        ...formData,
+        hasVariants,
+      };
+
+      if (hasVariants) {
+        delete payload.sku;
+        delete payload.price;
+        delete payload.stock;
+        delete payload.sellingPrice;
+      }
+
+      console.log(payload);
+
+      const response = await createProduct(payload, token);
 
       showSuccess("Product created");
 
-      navigate("/admin/products");
+      if (hasVariants) {
+        navigate(`/admin/products/${response.product._id}/add-variants`);
+      } else {
+        navigate("/admin/products");
+      }
     } catch (error) {
       console.log(error);
-
-      showError("Create failed");
+      showError(error.response?.data?.message || "Create failed");
     }
   };
 
@@ -71,18 +89,6 @@ const CreateProduct = () => {
           </div>
 
           <div className="form-group">
-            <label>SKU</label>
-
-            <input
-              type="text"
-              name="sku"
-              placeholder="Enter SKU (e.g. PRD-001)"
-              value={formData.sku}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
             <label>Description</label>
 
             <textarea
@@ -93,28 +99,15 @@ const CreateProduct = () => {
             />
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>Price</label>
+          <div className="form-group">
+            <label>Minimum Stock level</label>
 
-              <input
-                type="number"
-                name="price"
-                placeholder="Enter product price"
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Stock</label>
-
-              <input
-                type="number"
-                name="stock"
-                placeholder="Enter stock quantity"
-                onChange={handleChange}
-              />
-            </div>
+            <input
+              name="minimumStockLevel"
+              placeholder="Enter minimum stock level"
+              onChange={handleChange}
+              min={0}
+            />
           </div>
 
           <div className="form-group product-image-section">
@@ -143,6 +136,72 @@ const CreateProduct = () => {
               placeholder="Enter category"
               onChange={handleChange}
             />
+          </div>
+          <div className="form-group">
+            <label>Does this product have variants?</label>
+
+            <div className="radio-group">
+              <label>
+                <input
+                  type="radio"
+                  checked={!hasVariants}
+                  onChange={() => setHasVariants(false)}
+                />
+                No
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  checked={hasVariants}
+                  onChange={() => setHasVariants(true)}
+                />
+                Yes
+              </label>
+            </div>
+          </div>
+
+          {hasVariants && (
+            <div className="variant-info-box">
+              <h4>Variant Product</h4>
+              <p>
+                Create the product first. After saving, you will be redirected
+                to the Variant Management page where you can add multiple
+                variants such as different colors, sizes, prices, stock
+                quantities and images.
+              </p>
+            </div>
+          )}
+
+          <div className="has-not-variant">
+            {!hasVariants && (
+              <div className="form-group">
+                <label>SKU</label>
+
+                <input
+                  type="text"
+                  name="sku"
+                  placeholder="Enter SKU (e.g. PRD-001)"
+                  value={formData.sku}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+
+            {!hasVariants && (
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Price</label>
+
+                  <input
+                    type="number"
+                    name="sellingPrice"
+                    placeholder="Enter product price"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           <button type="submit" className="create-product-btn">

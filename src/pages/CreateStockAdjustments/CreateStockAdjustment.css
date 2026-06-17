@@ -1,0 +1,119 @@
+.create-stock-adjustment {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.create-stock-adjustment h1 {
+  font-size: 32px;
+  color: #111827;
+  margin-bottom: 30px;
+}
+
+.create-stock-adjustment form {
+  background: white;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.create-stock-adjustment form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-stock-adjustment label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.create-stock-adjustment input,
+.create-stock-adjustment select,
+.create-stock-adjustment textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+  background: white;
+}
+
+.create-stock-adjustment input:focus,
+.create-stock-adjustment select:focus,
+.create-stock-adjustment textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.create-stock-adjustment textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Type select colors */
+
+.create-stock-adjustment select[name="type"] {
+  font-weight: 600;
+}
+
+/* Submit button */
+
+.create-stock-adjustment button[type="submit"] {
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.create-stock-adjustment button[type="submit"]:hover {
+  background: #2563eb;
+}
+
+/* Optional product info card */
+
+.selected-product-card {
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.selected-product-card h4 {
+  margin-bottom: 6px;
+  color: #111827;
+}
+
+.selected-product-card p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .create-stock-adjustment {
+    padding: 15px;
+  }
+
+  .create-stock-adjustment form {
+    padding: 22px;
+  }
+
+  .create-stock-adjustment h1 {
+    font-size: 28px;
+  }
+}

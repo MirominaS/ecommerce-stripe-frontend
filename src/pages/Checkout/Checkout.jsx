@@ -20,6 +20,7 @@ const Checkout = () => {
     const fetchCheckout = async () => {
       try {
         const token = localStorage.getItem("token");
+       
         const stripe = await getStripePromise();
         setStripePromise(stripe);
 

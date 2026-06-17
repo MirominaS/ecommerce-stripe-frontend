@@ -13,8 +13,7 @@ const Success = () => {
       try {
         const sessionId = searchParams.get("session_id");
         const token = localStorage.getItem("token");
-        const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-        const data = await paymentSuccess(sessionId, cartItems, token);
+        const data = await paymentSuccess(sessionId, token);
         localStorage.removeItem("cart");
 
         console.log(data);

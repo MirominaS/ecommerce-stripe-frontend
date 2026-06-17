@@ -45,7 +45,7 @@ const Footer = () => {
     fetchSettings();
   }, []);
 
-  console.log(settings);
+  // console.log(settings);
   return (
     <footer className="footer">
       <div className="footer-container">

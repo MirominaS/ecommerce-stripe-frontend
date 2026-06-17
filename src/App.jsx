@@ -21,53 +21,75 @@ import AdminUsers from "./pages/AdminUsers/AdminUsers";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"
+import "react-toastify/dist/ReactToastify.css";
 import AdminSetting from "./pages/AdminSetting/AdminSetting";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import AdminMedia from "./pages/AdminMedia/AdminMedia";
+import CreateVariant from "./pages/CreateVariant/CreateVariant";
+import CreatePurchase from "./pages/CreatePurchase/CreatePurchase";
+import ProductVariants from "./pages/ProductVariants/ProductVariants";
+import EditProductVariant from "./pages/EditProductVariant/EditProductVariant";
+import AdminPurchase from "./pages/AdminPurchase/AdminPurchase";
+import CreateStockAdjustment from "./pages/CreateStockAdjustments/CreateStockAdjustment";
+import StockAlert from "./pages/StockAlert/StockAlert";
 
 function App() {
   return (
     <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/checkout/:productId" element={<Checkout />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist/>}/>
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword/>}/>
-        <Route path="/success" element={<Success />} />
-        <Route path="/order" element={<Order />} />
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <AdminLayout />
-            </AdminRoute>
-          }
-        >
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="analytics" element={<Analytics/>}/>
-          <Route path="products" element={<AdminProducts/>}/>
-          <Route path="products/create" element={<CreateProduct/>}/>
-          <Route path="products/edit/:id" element={<EditProduct/>}/>
-          <Route path="orders" element={<AdminOrders/>}/>
-          <Route path="payments" element={<Payments/>}/>
-          <Route path="users" element={<AdminUsers/>}/>
-          <Route path="setting" element={<AdminSetting/>}/>
-          <Route path="media" element={<AdminMedia/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    <ToastContainer
-      position="top-right"
-      autoClose={3000}
-      theme="light"
-    />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout/:productId" element={<Checkout />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/order" element={<Order />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminLayout />
+              </AdminRoute>
+            }
+          >
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="products/create" element={<CreateProduct />} />
+            <Route path="products/edit/:id" element={<EditProduct />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="payments" element={<Payments />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="setting" element={<AdminSetting />} />
+            <Route path="media" element={<AdminMedia />} />
+            <Route
+              path="products/:productId/add-variants"
+              element={<CreateVariant />}
+            />
+            <Route
+              path="products/:productId/variants"
+              element={<ProductVariants />}
+            />
+            <Route
+              path="products/:productId/variants/:variantId/edit"
+              element={<EditProductVariant />}
+            />
+            <Route path="purchase" element={<AdminPurchase />} />
+            <Route path="add-purchase" element={<CreatePurchase />} />
+            <Route path="stock-alert" element={<StockAlert />} />
+            <Route
+              path="create-stock-adjustment"
+              element={<CreateStockAdjustment />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} theme="light" />
     </>
   );
 }

@@ -86,7 +86,7 @@ const Payments = () => {
 
                 <td className="payment-email">{payment.user?.email}</td>
 
-                <td className="payment-amount">${payment.amount}</td>
+                <td className="payment-amount">€{payment.amount}</td>
 
                 <td>
                   <span className={`payment-status ${payment.paymentStatus}`}>

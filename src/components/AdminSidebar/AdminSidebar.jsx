@@ -11,12 +11,14 @@ const AdminSidebar = () => {
   const menuItems = [
     { name: "Dashboard", path: "/admin/dashboard" },
     { name: "Products", path: "/admin/products" },
+    { name: "Purchase", path: "/admin/purchase" },
     { name: "Media", path: "/admin/media" },
     { name: "Orders", path: "/admin/orders" },
     { name: "Payments", path: "/admin/payments" },
     { name: "Analytics", path: "/admin/analytics" },
     { name: "Users", path: "/admin/users" },
     { name: "Setting", path: "/admin/setting" },
+    { name: "Stock Alert", path: "/admin/stock-alert" },
   ];
 
   const handleLogout = () => {

@@ -86,7 +86,7 @@ const Order = () => {
                 <div className="order-summary-row">
                   <span>{order.orderItems.length} Items</span>
 
-                  <span>Total: ${order.totalPrice}</span>
+                  <span>Total: €{order.totalPrice}</span>
                 </div>
               </div>
             ))}

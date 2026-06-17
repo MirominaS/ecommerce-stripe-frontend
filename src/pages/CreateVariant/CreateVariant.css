@@ -1,0 +1,318 @@
+.create-variant-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.create-variant-card {
+  width: 100%;
+  max-width: 1000px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
+}
+
+/* Header */
+
+.variant-header {
+  margin-bottom: 30px;
+}
+
+.variant-header h1 {
+  font-size: 30px;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.variant-header p {
+  color: #6b7280;
+}
+
+/* Product Header */
+
+.product-header {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 30px;
+  background: #f8fafc;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+}
+
+.product-header-image img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.product-header h1 {
+  margin-bottom: 6px;
+  font-size: 26px;
+}
+
+.product-header p {
+  margin: 4px 0;
+  color: #6b7280;
+}
+
+/* Form */
+
+.variant-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  transition: 0.25s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* Attributes */
+
+.attribute-section {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.attribute-section h4 {
+  margin-bottom: 16px;
+  color: #111827;
+}
+
+.attribute-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+}
+
+.attribute-inputs input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+}
+
+.attribute-inputs button {
+  padding: 12px 18px;
+  border: none;
+  background: #111827;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.attribute-inputs button:hover {
+  background: #1d4ed8;
+}
+
+.attribute-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.attribute-item {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+/* Image */
+
+.select-image-btn {
+  width: fit-content;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.select-image-btn:hover {
+  background: #1d4ed8;
+}
+
+.image-preview {
+  display: flex;
+  justify-content: center;
+  background: #f8fafc;
+  border: 2px dashed #dbeafe;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.image-preview img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* Add Variant Button */
+
+.add-variant-btn {
+  border: none;
+  padding: 15px;
+  background: #111827;
+  color: white;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.add-variant-btn:hover {
+  background: #2563eb;
+}
+
+/* Existing Variants */
+
+.variant-list {
+  margin-top: 40px;
+}
+
+.variant-list h2 {
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.variant-list-wrapper {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.variant-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.variant-table thead {
+  background: #f8fafc;
+}
+
+.variant-table th {
+  text-align: left;
+  padding: 16px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.variant-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.variant-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.variant-attributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.variant-attribute-badge {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+ 
+
+/* Finish Button */
+
+.finish-btn {
+  margin-top: 30px;
+  width: 100%;
+  border: none;
+  padding: 16px;
+  border-radius: 14px;
+  background: #16a34a;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.finish-btn:hover {
+  background: #15803d;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .create-variant-card {
+    padding: 20px;
+  }
+
+  .product-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .attribute-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .variant-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-header-image img {
+    width: 100px;
+    height: 100px;
+  }
+
+    .variant-list-wrapper {
+    overflow-x: auto;
+  }
+
+  .variant-table {
+    min-width: 500px;
+  }
+}

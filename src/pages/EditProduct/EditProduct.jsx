@@ -5,6 +5,8 @@ import { updateProduct } from "../../services/adminService";
 import { getProductById } from "../../services/productService";
 import "./EditProduct.css";
 import { showError, showSuccess } from "../../utils/toast";
+import MediaPicker from "../../components/MediaPicker/MediaPicker";
+import UploadImage from "../../components/UploadImage/UploadImage";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -13,14 +15,19 @@ const EditProduct = () => {
 
   const navigate = useNavigate();
 
+  const [showImagePopup, setShowImagePopup] = useState(false);
+  const [showUploadPopup, setShowUploadPopup] = useState(false);
+  const [showMediaPicker, setShowMediaPicker] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({
     sku: "",
     title: "",
     description: "",
-    price: "",
+    sellingPrice: "",
     image: "",
     category: "",
-    stock: "",
+    hasVariants: false,
+    minimumStockLevel:"",
   });
 
   useEffect(() => {
@@ -28,7 +35,16 @@ const EditProduct = () => {
       try {
         const data = await getProductById(id);
 
-        setFormData(data.product);
+        setFormData({
+          ...data.product,
+          sellingPrice: data.product.sellingPrice || "",
+        });
+
+        if (data.product.imageUrl) {
+          setSelectedImage({
+            previewUrl: data.product.imageUrl,
+          });
+        }
       } catch (error) {
         console.log(error);
       }
@@ -48,15 +64,28 @@ const EditProduct = () => {
     e.preventDefault();
 
     try {
-      await updateProduct(id, formData, token);
+      const payload = {
+        title: formData.title,
+        description: formData.description,
+        minimumStockLevel: formData.minimumStockLevel,
+        category: formData.category,
+        image: formData.image,
+      };
 
-      showSuccess("Product updated")
+      if (!formData.hasVariants) {
+        payload.sku = formData.sku;
+        payload.sellingPrice = Number(formData.sellingPrice);
+      }
+
+      await updateProduct(id, payload, token);
+
+      showSuccess("Product updated");
 
       navigate("/admin/products");
     } catch (error) {
       console.log(error);
 
-      showError("Update failed")
+      showError("Update failed");
     }
   };
 
@@ -82,17 +111,19 @@ const EditProduct = () => {
             />
           </div>
 
-          <div className="form-group">
-            <label>SKU</label>
+          {!formData.hasVariants && (
+            <div className="form-group">
+              <label>SKU</label>
 
-            <input
-              type="text"
-              name="sku"
-              value={formData.sku}
-              onChange={handleChange}
-              placeholder="Enter SKU"
-            />
-          </div>
+              <input
+                type="text"
+                name="sku"
+                value={formData.sku}
+                onChange={handleChange}
+                placeholder="Enter SKU"
+              />
+            </div>
+          )}
 
           <div className="form-group">
             <label>Description</label>
@@ -106,42 +137,43 @@ const EditProduct = () => {
             />
           </div>
 
-          <div className="form-row">
+           <div className="form-group">
+            <label>Minimum Stock level</label>
+
+            <input
+              name="minimumStockLevel"
+              value={formData.minimumStockLevel}
+              placeholder="Enter minimum stock level"
+              onChange={handleChange}
+              min={0}
+            />
+          </div>
+
+
+          {!formData.hasVariants && (
             <div className="form-group">
-              <label>Price</label>
+              <label>Selling Price</label>
 
               <input
                 type="number"
-                name="price"
-                value={formData.price}
+                name="sellingPrice"
+                value={formData.sellingPrice}
                 onChange={handleChange}
                 placeholder="Enter price"
               />
             </div>
+          )}
 
-            <div className="form-group">
-              <label>Stock</label>
+          <div className="form-group product-image-section">
+            <label>Product Image</label>
 
-              <input
-                type="number"
-                name="stock"
-                value={formData.stock}
-                onChange={handleChange}
-                placeholder="Enter stock"
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Image URL</label>
-
-            <input
-              type="text"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              placeholder="Enter image URL"
-            />
+            <button
+              type="button"
+              className="image-select-btn"
+              onClick={() => setShowImagePopup(true)}
+            >
+              Change Image
+            </button>
           </div>
 
           <div className="form-group">
@@ -156,9 +188,25 @@ const EditProduct = () => {
             />
           </div>
 
-          {formData.image && (
+          {formData.hasVariants && (
+            <div className="variant-info-box">
+              <h4>This product uses variants</h4>
+
+              <p>Prices, stock and SKU are managed through variants.</p>
+
+              <button
+                type="button"
+                className="manage-variants-btn"
+                onClick={() => navigate(`/admin/products/${id}/variants`)}
+              >
+                Manage Variants
+              </button>
+            </div>
+          )}
+
+          {selectedImage?.previewUrl && (
             <div className="image-preview">
-              <img src={formData.image} alt={formData.title} />
+              <img src={selectedImage.previewUrl} alt={formData.title} />
             </div>
           )}
 
@@ -167,6 +215,72 @@ const EditProduct = () => {
           </button>
         </form>
       </div>
+
+      {showImagePopup && (
+        <div className="image-modal">
+          <div className="modal-content">
+            <button
+              type="button"
+              className="modal-close"
+              onClick={() => setShowImagePopup(false)}
+            >
+              ✕
+            </button>
+
+            <h3>Select Image</h3>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowImagePopup(false);
+                setShowUploadPopup(true);
+              }}
+            >
+              Upload New Image
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowImagePopup(false);
+                setShowMediaPicker(true);
+              }}
+            >
+              Select From Media Library
+            </button>
+          </div>
+        </div>
+      )}
+
+      <MediaPicker
+        isOpen={showMediaPicker}
+        onClose={() => setShowMediaPicker(false)}
+        onSelect={(image) => {
+          setSelectedImage(image);
+
+          setFormData((prev) => ({
+            ...prev,
+            image: image._id,
+          }));
+
+          setShowMediaPicker(false);
+        }}
+      />
+
+      <UploadImage
+        isOpen={showUploadPopup}
+        onClose={() => setShowUploadPopup(false)}
+        onUploadSuccess={(image) => {
+          setSelectedImage(image);
+
+          setFormData((prev) => ({
+            ...prev,
+            image: image._id,
+          }));
+
+          setShowUploadPopup(false);
+        }}
+      />
     </div>
   );
 };

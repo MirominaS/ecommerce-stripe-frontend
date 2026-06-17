@@ -21,15 +21,18 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [wishlisted, setWishlisted] = useState(false);
+  const [selectedVariant, setSelectedVariant] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const data = await getProductById(id);
 
-        console.log(data);
-
         setProduct(data.product);
+
+        if (data.product.hasVariants && data.product.variants.length > 0) {
+          setSelectedVariant(data.product.variants[0]);
+        }
         setWishlisted(isInWishlist(data.product._id));
       } catch (error) {
         console.log(error);
@@ -41,14 +44,33 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
-  const handleAddToCart = async () => {
+  useEffect(() => {
+    console.log("Selected Variant Changed:", selectedVariant);
+  }, [selectedVariant]);
+
+  const handleAddToCart = () => {
     try {
-      if (product.stock === 0) {
+      if (currentStock === 0) {
         showWarning("Product is out of stock");
         return;
       }
 
-      addToCart(product);
+      const cartItem = {
+        _id: product._id,
+        variantId: selectedVariant?._id || null,
+        title: product.title,
+        sku: selectedVariant?.sku || product.sku,
+
+        price: product.hasVariants
+          ? selectedVariant.sellingPrice
+          : product.sellingPrice,
+
+        image: selectedVariant?.imageUrls?.[0] || product.imageUrl,
+
+        quantity: 1,
+      };
+
+      addToCart(cartItem);
 
       showInfo("Product added to cart");
     } catch (error) {
@@ -78,6 +100,13 @@ const ProductDetails = () => {
     return <h1 className="not-found-text">Product not found</h1>;
   }
 
+  const hasAvailableVariants =
+    product.hasVariants && product.variants?.length > 0;
+
+  const currentStock = product.hasVariants
+    ? selectedVariant?.stock || 0
+    : product.inventory?.stock || 0;
+
   return (
     <>
       <Navbar />
@@ -87,7 +116,11 @@ const ProductDetails = () => {
             <div className="product-image-wrapper">
               <img
                 className="product-image"
-                src={product.imageUrl}
+                src={
+                  selectedVariant?.imageUrls?.[0]
+                    ? selectedVariant.imageUrls[0]
+                    : product.imageUrl
+                }
                 alt={product.title}
               />
             </div>
@@ -97,25 +130,49 @@ const ProductDetails = () => {
             <h1 className="product-title">{product.title}</h1>
 
             <p className="product-description">{product.description}</p>
+            {hasAvailableVariants && (
+              <div className="variant-section">
+                <h3 className="variant-title">Select Variant</h3>
 
-            <h2 className="product-price">${product.price}</h2>
+                <div className="variant-list">
+                  {product.variants.map((variant) => (
+                    <button
+                      key={variant._id}
+                      className={`variant-btn ${
+                        selectedVariant?._id === variant._id ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedVariant(variant)}
+                    >
+                      <div>{variant.sku}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <h2 className="product-price">
+              €.{" "}
+              {product.hasVariants
+                ? selectedVariant?.sellingPrice || 0
+                : product.sellingPrice}
+            </h2>
 
             <div className="product-stock">
-              {product.stock === 0 ? (
+              {currentStock === 0 ? (
                 <span className="out-stock">Out of Stock</span>
-              ) : product.stock <= 5 ? (
-                <span className="low-stock">Only {product.stock} left</span>
+              ) : currentStock <= 5 ? (
+                <span className="low-stock">Only {currentStock} left</span>
               ) : (
-                <span className="in-stock">In Stock ({product.stock})</span>
+                <span className="in-stock">In Stock ({currentStock})</span>
               )}
             </div>
             <div className="product-buttons">
               <button
                 className="product-btn"
-                disabled={product.stock === 0}
+                disabled={selectedVariant?.stock === 0}
                 onClick={handleAddToCart}
               >
-                {product.stock === 0 ? "Out of Stock" : "Add To Cart"}
+                {currentStock === 0 ? "Out of Stock" : "Add To Cart"}
               </button>
               <button
                 className={`wishlisted-btn ${wishlisted ? "active" : ""}`}

@@ -8,6 +8,11 @@ const ProductCard = ({
   onView,
   onWishlist,
 }) => {
+  const displayVariant =
+    product.hasVariants && product.variants?.length > 0
+      ? product.variants[0]
+      : null;
+
   return (
     <div className="product-card" onClick={() => onView(product._id)}>
       <div className="product-card-image-wrapper">
@@ -23,17 +28,11 @@ const ProductCard = ({
 
         <h3 className="product-card-title">{product.title}</h3>
 
-        <div className="product-card-price">${product.price}</div>
-
-        {/* Stock Information */}
-        <div className="product-stock">
-          {product.stock === 0 ? (
-            <span className="out-stock">Out of Stock</span>
-          ) : product.stock <= 5 ? (
-            <span className="low-stock">Only {product.stock} left</span>
-          ) : (
-            <span className="in-stock">In Stock ({product.stock})</span>
-          )}
+        <div className="product-card-price">
+          €
+          {product.hasVariants
+            ? displayVariant?.sellingPrice
+            : product.sellingPrice}
         </div>
 
         <button

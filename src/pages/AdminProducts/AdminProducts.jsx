@@ -54,8 +54,7 @@ const AdminProducts = () => {
         }),
       );
 
-      setProducts(productsWithUrls);
-
+      setProducts(productsWithUrls); // ← YOU FORGOT THIS
       setTotalPages(data.pagination.totalPages);
     } catch (error) {
       console.log(error);
@@ -200,16 +199,32 @@ const AdminProducts = () => {
                 </td>
 
                 <td className="product-title">{product.title}</td>
-                <td className="product-sku">{product.sku}</td>
-                <td className="product-price">${product.price}</td>
+                <td className="product-sku">
+                  {product.hasVariants ? (
+                    <Link to={`/admin/products/${product._id}/variants`}>
+                      {product.variants?.length || 0} Variants
+                    </Link>
+                  ) : (
+                    product.sku || "-"
+                  )}
+                </td>
+                <td className="product-price">
+                  {product.hasVariants
+                    ? product.variants?.length > 0
+                      ? `From €. ${Math.min(
+                          ...product.variants.map((v) => v.sellingPrice),
+                        )}`
+                      : "-"
+                    : `€. ${product.sellingPrice ?? 0}`}
+                </td>
 
                 <td>
                   <span
                     className={`stock-badge ${
-                      product.stock > 0 ? "in-stock" : "out-stock"
+                      (product.stock || 0) > 0 ? "in-stock" : "out-stock"
                     }`}
                   >
-                    {product.stock}
+                    {product.stock ?? 0}
                   </span>
                 </td>
 
