@@ -30,6 +30,8 @@ import CreatePurchase from "./pages/CreatePurchase/CreatePurchase";
 import ProductVariants from "./pages/ProductVariants/ProductVariants";
 import EditProductVariant from "./pages/EditProductVariant/EditProductVariant";
 import AdminPurchase from "./pages/AdminPurchase/AdminPurchase";
+import CreateStockAdjustment from "./pages/CreateStockAdjustments/CreateStockAdjustment";
+import StockAlert from "./pages/StockAlert/StockAlert";
 
 function App() {
   return (
@@ -79,6 +81,11 @@ function App() {
             />
             <Route path="purchase" element={<AdminPurchase />} />
             <Route path="add-purchase" element={<CreatePurchase />} />
+            <Route path="stock-alert" element={<StockAlert />} />
+            <Route
+              path="create-stock-adjustment"
+              element={<CreateStockAdjustment />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
